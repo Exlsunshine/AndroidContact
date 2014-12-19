@@ -117,6 +117,7 @@ public class MainActivity extends Activity
 			public boolean onMenuItemClick(MenuItem arg0)
 			{
 				Intent it = new Intent(MainActivity.this,AddNewContactActivity.class);
+				it.putExtra(AddNewContactActivity.INTENT_KEY,AddNewContactActivity.INTENT_INVALID_DATA);
 				startActivity(it);
 				
 				int version = Integer.valueOf(android.os.Build.VERSION.SDK);  

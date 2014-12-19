@@ -154,8 +154,8 @@ public class CaptureActivity extends Activity implements Callback
 		playBeepSoundAndVibrate();	
 		playBeepSoundAndVibrate();	
 		
-		Intent intent1=new Intent();
-		intent1.putExtra("info",obj.getText().toString());
+		Intent intent1 = new Intent();
+		intent1.putExtra(AddNewContactActivity.INTENT_KEY,obj.getText().toString());
 		
 		intent1.setClass(CaptureActivity.this,AddNewContactActivity.class);
 		startActivity(intent1);
@@ -206,49 +206,4 @@ public class CaptureActivity extends Activity implements Callback
 			mediaPlayer.seekTo(0);
 		}
 	};
-	 
-	/*
-	public void showbaner()
-	 {
-		 mAdContainer = (RelativeLayout) findViewById(R.id.adcontainer);
-			// Create ad view
-			mAdview320x50 = new DomobAdView(this,contact.PUBLISHER_ID,contact.InlinePPID, DomobAdView.INLINE_SIZE_320X50);
-			mAdview320x50.setKeyword("game");
-			mAdview320x50.setUserGender("male");
-			mAdview320x50.setUserBirthdayStr("2000-08-08");
-			mAdview320x50.setUserPostcode("123456");
-
-			mAdview320x50.setAdEventListener(new DomobAdEventListener() {
-							
-				public void onDomobAdReturned(DomobAdView adView) {
-					Log.i("DomobSDKDemo", "onDomobAdReturned");				
-				}
-
-				public void onDomobAdOverlayPresented(DomobAdView adView) {
-					Log.i("DomobSDKDemo", "overlayPresented");
-				}
-
-				public void onDomobAdOverlayDismissed(DomobAdView adView) {
-					Log.i("DomobSDKDemo", "Overrided be dismissed");				
-				}
-
-				public void onDomobAdClicked(DomobAdView arg0) {
-					Log.i("DomobSDKDemo", "onDomobAdClicked");				
-				}
-
-				public void onDomobAdFailed(DomobAdView arg0, ErrorCode arg1) {
-					Log.i("DomobSDKDemo", "onDomobAdFailed");				
-				}
-
-				public void onDomobLeaveApplication(DomobAdView arg0) {
-					Log.i("DomobSDKDemo", "onDomobLeaveApplication");				
-				}
-
-				public Context onDomobAdRequiresCurrentContext() {
-					return CaptureActivity.this;
-				}
-			});
-			
-			mAdContainer.addView(mAdview320x50);
-	 }*/
 }

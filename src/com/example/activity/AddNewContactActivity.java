@@ -1,9 +1,8 @@
 package com.example.activity;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
-
+import org.official.json.JSONObject;
 import android.app.ActionBar.LayoutParams;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -32,10 +31,6 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
 import com.example.contact.R;
-import com.example.contact.R.drawable;
-import com.example.contact.R.id;
-import com.example.contact.R.layout;
-import com.example.contact.R.menu;
 import com.example.implementation.ButtonAnimations;
 import com.example.implementation.Contact;
 import com.example.implementation.DatabaseHandler;
@@ -43,6 +38,9 @@ import com.example.implementation.ImageUtils;
 
 public class AddNewContactActivity extends Activity
 {
+	public static String INTENT_KEY = "QRCODE_INTENT_KEY";
+	public static String INTENT_INVALID_DATA = "INVALID";
+	
 	private Button cancel;
 	private Button done;
 	private Button addPhone;
@@ -50,6 +48,10 @@ public class AddNewContactActivity extends Activity
 	private ImageView imageCenter;
 	private ImageView imageCamera;
 	private ImageView portrait;
+	private EditText firstName;
+	private EditText lastName;
+	private EditText company;
+	
 	
 	private String [] phoneType = {"Mobile","Home","Work"};
 	private String [] othersType = {"E-mails","Home addres","Nick name"};
@@ -71,6 +73,9 @@ public class AddNewContactActivity extends Activity
 		imageCenter = (ImageView)findViewById(R.id.imgCenter);
 		imageCamera = (ImageView)findViewById(R.id.imgCamera);
 		portrait = (ImageView)findViewById(R.id.portrait);
+		firstName = (EditText)findViewById(R.id.first_name);
+		lastName = (EditText)findViewById(R.id.last_name);
+		company = (EditText)findViewById(R.id.company);
 		
 		imageCamera.setOnClickListener(new OnClickListener()
 		{
@@ -101,53 +106,16 @@ public class AddNewContactActivity extends Activity
 			@Override
 			public void onClick(View arg0)
 			{
-				LinearLayout addOthersOuterLayout = (LinearLayout)findViewById(R.id.add_others_outter_layout);
-				
-				LinearLayout layout = new LinearLayout(AddNewContactActivity.this);
-				layout.setId(othersId++);
-				layout.setOrientation(LinearLayout.HORIZONTAL);
-								
-				Spinner sp = new Spinner(AddNewContactActivity.this);
-				sp.setId(110);
-				ArrayAdapter<String> arrAdp = new ArrayAdapter<String>(AddNewContactActivity.this, android.R.layout.simple_spinner_item, othersType);
-				sp.setAdapter(arrAdp);
-				sp.setOnItemSelectedListener(new OnItemSelectedListener()
-				{
-					@Override
-					public void onItemSelected(AdapterView<?> arg0, View arg1,
-							int arg2, long arg3)
-					{
-						int index = arg0.getSelectedItemPosition();
-						Toast.makeText(AddNewContactActivity.this, othersType[index], Toast.LENGTH_SHORT).show();
-					}
-
-					@Override
-					public void onNothingSelected(AdapterView<?> arg0)
-					{
-						Toast.makeText(AddNewContactActivity.this,"Nothing", Toast.LENGTH_SHORT).show();
-					}
-				});
-				
-				EditText et = new EditText(AddNewContactActivity.this);
-				et.setId(10);
-				et.setText("add number here.");
-				et.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
-				
-				ImageView img = new ImageView(AddNewContactActivity.this);
-				img.setBackgroundResource(R.drawable.minus);
-				LayoutParams params = new LayoutParams(100,100);
-				img.setLayoutParams(params);
-				img.setOnClickListener(deleteOthersClickListener);
-				
-				layout.addView(img);
-				layout.addView(sp);
-				layout.addView(et);
-				
-				addOthersOuterLayout.addView(layout);
-				
-				AlphaAnimation alpha = new AlphaAnimation(0.0f, 1.0f);
-				alpha.setDuration(1000);
-				layout.startAnimation(alpha);
+				addOthersView("add at here",0);
+			}
+		});
+		
+		addPhone.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View arg0)
+			{
+				addPhoneView("add number here.",0);
 			}
 		});
 		
@@ -198,66 +166,101 @@ public class AddNewContactActivity extends Activity
 			}
 		});
 		
-		addPhone.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View arg0)
-			{
-				LinearLayout addPhoneOutterLayout = (LinearLayout)findViewById(R.id.add_phone_outter_layout);
-				LinearLayout layout = new LinearLayout(AddNewContactActivity.this);
-				layout.setId(cnt++);
-				layout.setOrientation(LinearLayout.HORIZONTAL);
-				
-				Spinner sp = new Spinner(AddNewContactActivity.this);
-				sp.setId(110);
-				ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddNewContactActivity.this, android.R.layout.simple_spinner_item, phoneType);
-				sp.setAdapter(adapter);
-				sp.setOnItemSelectedListener(new OnItemSelectedListener()
-				{
-					@Override
-					public void onItemSelected(AdapterView<?> arg0, View arg1,
-							int arg2, long arg3)
-					{
-						int index = arg0.getSelectedItemPosition();
-						Toast.makeText(AddNewContactActivity.this, phoneType[index], Toast.LENGTH_SHORT).show();
-					}
-
-					@Override
-					public void onNothingSelected(AdapterView<?> arg0)
-					{
-						Toast.makeText(AddNewContactActivity.this,"Nothing", Toast.LENGTH_SHORT).show();
-					}
-				});
-				
-				EditText et = new EditText(AddNewContactActivity.this);
-				et.setText("add number here.");
-				et.setId(10);
-				et.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
-				
-				ImageView img = new ImageView(AddNewContactActivity.this);
-				img.setBackgroundResource(R.drawable.minus);
-				LayoutParams params = new LayoutParams(100,100);
-				img.setLayoutParams(params);
-				img.setOnClickListener(deleteClickListener);
-				
-
-				layout.addView(img);
-				layout.addView(sp);
-				layout.addView(et);
-				addPhoneOutterLayout.addView(layout);
-				
-				AlphaAnimation alpha = new AlphaAnimation(0.0f, 1.0f);
-				alpha.setDuration(1000);
-				layout.startAnimation(alpha);
-			}
-		});
-		
-        
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         
-        String qrInfo = getIntent().getExtras().getString("info");
+        String qrInfo = getIntent().getExtras().getString(INTENT_KEY);
         Toast.makeText(AddNewContactActivity.this, qrInfo, Toast.LENGTH_SHORT).show();
+        splitQrInfo(qrInfo);
+	}
+	
+	private void addPhoneView(String value, int indexOfPhoneType)
+	{
+		LinearLayout addPhoneOutterLayout = (LinearLayout)findViewById(R.id.add_phone_outter_layout);
+		LinearLayout layout = new LinearLayout(AddNewContactActivity.this);
+		layout.setId(cnt++);
+		layout.setOrientation(LinearLayout.HORIZONTAL);
+		
+		Spinner sp = new Spinner(AddNewContactActivity.this);
+		sp.setId(110);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddNewContactActivity.this, android.R.layout.simple_spinner_item, phoneType);
+		sp.setAdapter(adapter);
+		sp.setSelection(indexOfPhoneType);
+		
+		EditText et = new EditText(AddNewContactActivity.this);
+		et.setText(value);
+		et.setId(10);
+		et.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+		
+		ImageView img = new ImageView(AddNewContactActivity.this);
+		img.setBackgroundResource(R.drawable.minus);
+		LayoutParams params = new LayoutParams(100,100);
+		img.setLayoutParams(params);
+		img.setOnClickListener(deleteClickListener);
+		
+		layout.addView(img);
+		layout.addView(sp);
+		layout.addView(et);
+		addPhoneOutterLayout.addView(layout);
+		
+		AlphaAnimation alpha = new AlphaAnimation(0.0f, 1.0f);
+		alpha.setDuration(1000);
+		layout.startAnimation(alpha);
+	}
+	
+	private void addOthersView(String value, int indexOfOthersType)
+	{
+		LinearLayout addOthersOuterLayout = (LinearLayout)findViewById(R.id.add_others_outter_layout);
+		
+		LinearLayout layout = new LinearLayout(AddNewContactActivity.this);
+		layout.setId(othersId++);
+		layout.setOrientation(LinearLayout.HORIZONTAL);
+						
+		Spinner sp = new Spinner(AddNewContactActivity.this);
+		sp.setId(110);
+		ArrayAdapter<String> arrAdp = new ArrayAdapter<String>(AddNewContactActivity.this, android.R.layout.simple_spinner_item, othersType);
+		sp.setAdapter(arrAdp);
+		sp.setSelection(indexOfOthersType);
+		
+		EditText et = new EditText(AddNewContactActivity.this);
+		et.setId(10);
+		et.setText(value);
+		et.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,LayoutParams.MATCH_PARENT));
+		
+		ImageView img = new ImageView(AddNewContactActivity.this);
+		img.setBackgroundResource(R.drawable.minus);
+		LayoutParams params = new LayoutParams(100,100);
+		img.setLayoutParams(params);
+		img.setOnClickListener(deleteOthersClickListener);
+		
+		layout.addView(img);
+		layout.addView(sp);
+		layout.addView(et);
+		addOthersOuterLayout.addView(layout);
+		
+		AlphaAnimation alpha = new AlphaAnimation(0.0f, 1.0f);
+		alpha.setDuration(1000);
+		layout.startAnimation(alpha);
+	}
+	
+	private boolean splitQrInfo(String qrInfo)
+	{
+		if (qrInfo.equals(INTENT_INVALID_DATA))
+			return false;
+		
+		JSONObject json = new JSONObject(qrInfo);
+		
+		firstName.setText(json.getString(DatabaseHandler.KEY_FIRST_NAME));
+		lastName.setText(json.getString(DatabaseHandler.KEY_LAST_NAME));
+		company.setText(json.getString(DatabaseHandler.KEY_COMPANY));
+		addPhoneView(json.getString(DatabaseHandler.KEY_MOBILE_NO), 0);
+		addPhoneView(json.getString(DatabaseHandler.KEY_HOME_NO), 1);
+		addPhoneView(json.getString(DatabaseHandler.KEY_WORK_NO), 2);
+		addOthersView(json.getString(DatabaseHandler.KEY_EMAILS),0);
+		addOthersView(json.getString(DatabaseHandler.KEY_HOME_ADDRESS),1);
+		addOthersView(json.getString(DatabaseHandler.KEY_NICK_NAME),2);
+		
+		return true;
 	}
 	
 	private int saveToDatabase(Map<String,Object> map)
