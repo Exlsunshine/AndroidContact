@@ -255,6 +255,9 @@ public class AddNewContactActivity extends Activity
         
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
+        
+        String qrInfo = getIntent().getExtras().getString("info");
+        Toast.makeText(AddNewContactActivity.this, qrInfo, Toast.LENGTH_SHORT).show();
 	}
 	
 	private int saveToDatabase(Map<String,Object> map)

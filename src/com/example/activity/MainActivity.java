@@ -8,38 +8,25 @@ import com.example.implementation.Contact;
 import com.example.implementation.ContactContentProvider;
 import com.example.implementation.DatabaseHandler;
 import com.example.view.ContactListViewAdapter;
-
+import com.zijunlin.Zxing.Demo.CaptureActivity;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.ActionBar;
 import android.app.Activity;
 import android.app.SearchManager;
-import android.content.ContentUris;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
-import android.support.v4.app.NavUtils;
-import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MenuItem.OnActionExpandListener;
 import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.View.OnFocusChangeListener;
-import android.view.View.OnKeyListener;
-import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.SearchView.OnCloseListener;
 import android.widget.SearchView.OnQueryTextListener;
-import android.widget.Toast;
 
 public class MainActivity extends Activity
 {
@@ -111,6 +98,17 @@ public class MainActivity extends Activity
 	    SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
 	    searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 	    
+	    MenuItem scan = menu.findItem(R.id.action_scan);
+	    scan.setOnMenuItemClickListener(new OnMenuItemClickListener()
+	    {
+			@Override
+			public boolean onMenuItemClick(MenuItem arg0)
+			{
+				Intent scanIntent = new Intent(MainActivity.this, CaptureActivity.class);
+				startActivity(scanIntent);
+				return true;
+			}
+		});
 	    
 	    MenuItem add = menu.findItem(R.id.action_add);
 	    add.setOnMenuItemClickListener(new OnMenuItemClickListener()
