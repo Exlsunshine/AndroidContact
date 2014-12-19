@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <string name="app_name">Contact2</string>
+    <string name="action_settings">Settings</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_add_new_contact">AddNewContact</string>
+    <string name="title_activity_contact_details">ContactDetails</string>
+	<string name="search_hint">Search by number or name</string>
+    
+    
+	<style mce_bogus="1" name="ThemeActivity" parent="@android:style/Theme.DeviceDefault.Light.DarkActionBar">
+		<item name="android:windowAnimationStyle">@style/AnimationActivity</item>
+		<item name="android:windowNoTitle">false</item>
+    </style>
+    
+    <style name="AnimationActivity" parent="@android:style/Animation.Activity" mce_bogus="1">
+		<item name="android:activityOpenEnterAnimation">@anim/open_enter</item>
+		<item name="android:activityOpenExitAnimation">@anim/open_exit</item>
+		<item name="android:activityCloseEnterAnimation">@anim/close_enter</item>
+		<item name="android:activityCloseExitAnimation">@anim/close_exit</item>
+    </style>
+</resources>
