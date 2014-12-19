@@ -23,8 +23,12 @@ import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MenuItem.OnActionExpandListener;
+import android.view.MenuItem.OnMenuItemClickListener;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnFocusChangeListener;
+import android.view.View.OnKeyListener;
 import android.view.animation.TranslateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -116,8 +120,6 @@ public class MainActivity extends Activity
 		});
 	}
 	
-	//Toast.makeText(MainActivity.this, "back", Toast.LENGTH_SHORT).show();
-	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
@@ -127,13 +129,20 @@ public class MainActivity extends Activity
 	    SearchView searchView = (SearchView) menu.findItem(R.id.action_search).getActionView();
 	    searchView.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
 	    
-	    searchView.setOnSearchClickListener(new OnClickListener()
+	    
+	    MenuItem add = menu.findItem(R.id.action_add);
+	    add.setOnMenuItemClickListener(new OnMenuItemClickListener()
 	    {
 			@Override
-			public void onClick(View arg0)
+			public boolean onMenuItemClick(MenuItem arg0)
 			{
-				contactList.clear();
-        		contactAdapter.notifyDataSetChanged();
+				Intent it = new Intent(MainActivity.this,AddNewContactActivity.class);
+				startActivity(it);
+				
+				int version = Integer.valueOf(android.os.Build.VERSION.SDK);  
+				if(version >= 5)
+					overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+				return true;
 			}
 		});
 	    
@@ -150,6 +159,24 @@ public class MainActivity extends Activity
 			{
 				contactList.clear();
         		contactAdapter.notifyDataSetChanged();
+        		getSuggestions(arg0);
+				return true;
+			}
+		});
+	    
+	    menu.findItem(R.id.action_search).setOnActionExpandListener(new OnActionExpandListener()
+	    {
+			@Override
+			public boolean onMenuItemActionExpand(MenuItem arg0)
+			{
+				return true;
+			}
+			
+			@Override
+			public boolean onMenuItemActionCollapse(MenuItem arg0)
+			{
+				initVariable();
+				contactAdapter.notifyDataSetChanged();
 				return true;
 			}
 		});
@@ -165,40 +192,48 @@ public class MainActivity extends Activity
         String query = intent.getStringExtra(SearchManager.QUERY);
         if(Intent.ACTION_SEARCH.equals(intent.getAction()))
         {
-        	String [] projectionsAll = null;
-        	ContactContentProvider ccp = new ContactContentProvider();
-        	ccp.setContext(MainActivity.this);
-        	Cursor managedCursor = 
-        	ccp.query(
-                    Uri.parse("content://" + "com.example.implementation.ContactContentProvider" + "/" + "contacts"),//.fromParts("content", "com.example.implementation.ContactContentProvider.contacts", null),
-                    projectionsAll,    // Which columns to return.
-                    DatabaseHandler.KEY_FIRST_NAME + " LIKE ? or " + DatabaseHandler.KEY_MOBILE_NO + " LIKE ?",          // WHERE clause.
-                    new String [] {query + "%",query + "%"},          // WHERE clause value substitution
-                    DatabaseHandler.KEY_FIRST_NAME);   // Sort order.
-        	
-        	if (managedCursor != null && managedCursor.moveToFirst())
-    		{
-    			do
-    			{
-    				Contact con = new Contact(Integer.parseInt(managedCursor.getString(0)), null, managedCursor.getString(2), managedCursor.getString(3), managedCursor.getString(4), managedCursor.getString(5), managedCursor.getString(6), managedCursor.getString(7), managedCursor.getString(8), managedCursor.getString(9), managedCursor.getString(10));
-    				con.setPortraitData(managedCursor.getBlob(managedCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PORTRAIT)));
-    				
-    				HashMap<String, Object> map = new HashMap<String, Object>();
-    				map.put(DatabaseHandler.KEY_ID, con.getID());
-    				map.put(DatabaseHandler.KEY_PORTRAIT, con.getPortrait());
-    				map.put(DatabaseHandler.KEY_FIRST_NAME, con.getFirstName());
-    				map.put(DatabaseHandler.KEY_LAST_NAME, con.getLastName());
-    				map.put(DatabaseHandler.KEY_COMPANY, con.getCompany());
-    				map.put(DatabaseHandler.KEY_MOBILE_NO, con.getMobileNumber());
-    				map.put(DatabaseHandler.KEY_WORK_NO, con.getWrokNumber());
-    				map.put(DatabaseHandler.KEY_HOME_NO, con.getHomeNumber());
-    				map.put(DatabaseHandler.KEY_EMAILS, con.getEmails());
-    				map.put(DatabaseHandler.KEY_HOME_ADDRESS, con.getHomeAddress());
-    				map.put(DatabaseHandler.KEY_NICK_NAME, con.getNickName());
-    				contactList.add(map);
-    			}while (managedCursor.moveToNext());
-    			contactAdapter.notifyDataSetChanged();
-    		}
+        	getSuggestions(query);
         }
     }
+	
+	private void getSuggestions(String query)
+	{
+		contactList.clear();
+		contactAdapter.notifyDataSetChanged();
+		
+		String [] projectionsAll = null;
+    	ContactContentProvider ccp = new ContactContentProvider();
+    	ccp.setContext(MainActivity.this);
+    	Cursor managedCursor = 
+    	ccp.query(
+                Uri.parse("content://" + "com.example.implementation.ContactContentProvider" + "/" + "contacts"),//.fromParts("content", "com.example.implementation.ContactContentProvider.contacts", null),
+                projectionsAll,    // Which columns to return.
+                DatabaseHandler.KEY_FIRST_NAME + " LIKE ? or " + DatabaseHandler.KEY_MOBILE_NO + " LIKE ?",          // WHERE clause.
+                new String [] {query + "%",query + "%"},          // WHERE clause value substitution
+                DatabaseHandler.KEY_FIRST_NAME);   // Sort order.
+    	
+    	if (managedCursor != null && managedCursor.moveToFirst())
+		{
+			do
+			{
+				Contact con = new Contact(Integer.parseInt(managedCursor.getString(0)), null, managedCursor.getString(2), managedCursor.getString(3), managedCursor.getString(4), managedCursor.getString(5), managedCursor.getString(6), managedCursor.getString(7), managedCursor.getString(8), managedCursor.getString(9), managedCursor.getString(10));
+				con.setPortraitData(managedCursor.getBlob(managedCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PORTRAIT)));
+				
+				HashMap<String, Object> map = new HashMap<String, Object>();
+				map.put(DatabaseHandler.KEY_ID, con.getID());
+				map.put(DatabaseHandler.KEY_PORTRAIT, con.getPortrait());
+				map.put(DatabaseHandler.KEY_FIRST_NAME, con.getFirstName());
+				map.put(DatabaseHandler.KEY_LAST_NAME, con.getLastName());
+				map.put(DatabaseHandler.KEY_COMPANY, con.getCompany());
+				map.put(DatabaseHandler.KEY_MOBILE_NO, con.getMobileNumber());
+				map.put(DatabaseHandler.KEY_WORK_NO, con.getWrokNumber());
+				map.put(DatabaseHandler.KEY_HOME_NO, con.getHomeNumber());
+				map.put(DatabaseHandler.KEY_EMAILS, con.getEmails());
+				map.put(DatabaseHandler.KEY_HOME_ADDRESS, con.getHomeAddress());
+				map.put(DatabaseHandler.KEY_NICK_NAME, con.getNickName());
+				contactList.add(map);
+			}while (managedCursor.moveToNext());
+			contactAdapter.notifyDataSetChanged();
+		}
+	}
 }

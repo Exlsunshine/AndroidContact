@@ -52,6 +52,8 @@ public final class R {
         public static final int question_mark=0x7f020014;
     }
     public static final class id {
+        public static final int action_add=0x7f0a0019;
+        public static final int action_scan=0x7f0a0018;
         public static final int action_search=0x7f0a0017;
         public static final int action_settings=0x7f0a0016;
         public static final int addNewContact=0x7f0a0012;

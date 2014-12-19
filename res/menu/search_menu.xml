@@ -5,4 +5,12 @@
           android:icon="@android:drawable/ic_menu_search"
           android:showAsAction="ifRoom|collapseActionView"
           android:actionViewClass="android.widget.SearchView" />
+	<item android:id="@+id/action_scan"
+          android:title="Scan"
+          android:icon="@android:drawable/ic_menu_camera"
+          android:showAsAction="ifRoom|collapseActionView"/>
+    <item android:id="@+id/action_add"
+          android:title="Add"
+          android:icon="@android:drawable/ic_menu_add"
+          android:showAsAction="ifRoom|collapseActionView"/>
 </menu>
