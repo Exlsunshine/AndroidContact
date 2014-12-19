@@ -43,7 +43,6 @@ import android.widget.Toast;
 
 public class MainActivity extends Activity
 {
-	private Button addNewContact;
 	private ListView contactListview;
 	
 	private ArrayList<HashMap<String,Object>> contactList;
@@ -101,23 +100,6 @@ public class MainActivity extends Activity
 				MainActivity.this.startActivity(it);
 			}
 		});
-		
-		addNewContact = (Button)findViewById(R.id.addNewContact);
-		addNewContact.setOnClickListener(new OnClickListener()
-		{
-			@Override
-			public void onClick(View arg0)
-			{
-				Intent it = new Intent(MainActivity.this,AddNewContactActivity.class);
-				startActivity(it);
-				
-				startActivityForResult(it, 11);  			
-				
-				int version = Integer.valueOf(android.os.Build.VERSION.SDK);  
-				if(version >= 5)
-					overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
-			}
-		});
 	}
 	
 	@Override
@@ -164,7 +146,18 @@ public class MainActivity extends Activity
 			}
 		});
 	    
-	    menu.findItem(R.id.action_search).setOnActionExpandListener(new OnActionExpandListener()
+	    menu.findItem(R.id.action_search).setOnMenuItemClickListener(new OnMenuItemClickListener()
+	    {
+			@Override
+			public boolean onMenuItemClick(MenuItem arg0)
+			{
+				contactList.clear();
+        		contactAdapter.notifyDataSetChanged();
+				return true;
+			}
+		});
+	    
+		menu.findItem(R.id.action_search).setOnActionExpandListener(new OnActionExpandListener()
 	    {
 			@Override
 			public boolean onMenuItemActionExpand(MenuItem arg0)

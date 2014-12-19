@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.ActionBar.LayoutParams;
+import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -15,6 +16,7 @@ import android.os.Bundle;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.animation.AlphaAnimation;
@@ -249,6 +251,10 @@ public class AddNewContactActivity extends Activity
 				layout.startAnimation(alpha);
 			}
 		});
+		
+        
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
 	}
 	
 	private int saveToDatabase(Map<String,Object> map)
@@ -363,6 +369,16 @@ public class AddNewContactActivity extends Activity
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		getMenuInflater().inflate(R.menu.add_new_contact, menu);
+		return true;
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		if (item.getItemId() == android.R.id.home)
+		{
+			finish();
+		}
 		return true;
 	}
 }
