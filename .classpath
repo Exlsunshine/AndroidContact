@@ -5,7 +5,7 @@
 	<classpathentry exported="true" kind="con" path="com.android.ide.eclipse.adt.DEPENDENCIES"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="src" path="gen"/>
-	<classpathentry kind="lib" path="C:/Users/USER007/Desktop/workspace/Contact2/libs/core.jar"/>
-	<classpathentry kind="lib" path="C:/Users/USER007/Desktop/workspace/Contact2/libs/domob_android_sdk.jar"/>
+	<classpathentry kind="lib" path="libs/core.jar"/>
+	<classpathentry kind="lib" path="libs/domob_android_sdk.jar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

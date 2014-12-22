@@ -1,0 +1,201 @@
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MyProfileActivity"
+    android:orientation="vertical">
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="My QRcode" 
+        android:gravity="center_horizontal"
+        android:paddingTop="10dip"
+        android:paddingBottom="10dip"/>
+    
+    <ImageView 
+        android:layout_width="150dip"
+        android:layout_height="150dip"
+        android:id="@+id/qrcode_me"
+        android:layout_gravity="center_horizontal" 
+        android:background="@drawable/default_qrcode"/>
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:text="First name" 
+	        android:layout_weight="1"
+	        android:gravity="right"/>
+        <EditText 
+            android:layout_width="0dip"
+	        android:layout_height="wrap_content" 
+	        android:layout_weight="1"
+	        android:text="Zhang"
+	        android:id="@+id/first_name_me"
+	        android:gravity="left"/>
+    </LinearLayout>
+    
+	<LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:text="Last name" 
+	        android:layout_weight="1"
+	        android:gravity="right"/>
+        <EditText 
+            android:layout_width="0dip"
+	        android:layout_height="wrap_content" 
+	        android:layout_weight="1"
+	        android:text="San"
+	        android:gravity="left"
+	        android:id="@+id/last_name_me"/>
+    </LinearLayout>
+    
+    <LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:text="Company" 
+	        android:layout_weight="1"
+	        android:gravity="right"/>
+        <EditText 
+            android:layout_width="0dip"
+	        android:layout_height="wrap_content" 
+	        android:layout_weight="1"
+	        android:text="IBM"
+	        android:gravity="left"
+	        android:id="@+id/company_me"/>
+    </LinearLayout>
+    
+	<ImageView 
+		android:layout_width="fill_parent"
+		android:layout_height="0.5dip"
+		android:background="#cccccc"/>
+    
+	<LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:text="Mobile number" 
+	        android:layout_weight="1"
+	        android:gravity="right"/>
+        <EditText 
+            android:layout_width="0dip"
+	        android:layout_height="wrap_content" 
+	        android:layout_weight="1"
+	        android:text="13678909876"
+	        android:gravity="left"
+	        android:id="@+id/mobile_no_me"/>
+    </LinearLayout>
+	<LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:text="Wrok number" 
+	        android:layout_weight="1"
+	        android:gravity="right"/>
+        <EditText 
+            android:layout_width="0dip"
+	        android:layout_height="wrap_content" 
+	        android:layout_weight="1"
+	        android:text="67898765"
+	        android:gravity="left"
+	        android:id="@+id/work_no_me"/>
+	</LinearLayout> 
+	<LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:text="Home number" 
+	        android:layout_weight="1"
+	        android:gravity="right"/>
+        <EditText 
+            android:layout_width="0dip"
+	        android:layout_height="wrap_content" 
+	        android:layout_weight="1"
+	        android:text="87687909"
+	        android:gravity="left"
+	        android:id="@+id/home_no_me"/>
+    </LinearLayout>
+    
+	<ImageView 
+		android:layout_width="fill_parent"
+		android:layout_height="0.5dip"
+		android:background="#cccccc"/>
+	
+	<LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:text="Emails" 
+	        android:layout_weight="1"
+	        android:gravity="right"/>
+        <EditText 
+            android:layout_width="0dip"
+	        android:layout_height="wrap_content" 
+	        android:layout_weight="1"
+	        android:text="abcde@xyz.com"
+	        android:gravity="left"
+	        android:id="@+id/emails_me"/>
+    </LinearLayout>
+	<LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:text="Home address" 
+	        android:layout_weight="1"
+	        android:gravity="right"/>
+        <EditText 
+            android:layout_width="0dip"
+	        android:layout_height="wrap_content" 
+	        android:layout_weight="1"
+	        android:text="Beijing Chaoyang"
+	        android:gravity="left"
+	        android:id="@+id/home_addr_me"/>
+	</LinearLayout> 
+	<LinearLayout 
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <TextView
+	        android:layout_width="0dip"
+	        android:layout_height="wrap_content"
+	        android:text="Nick name" 
+	        android:layout_weight="1"
+	        android:gravity="right"/>
+        <EditText 
+            android:layout_width="0dip"
+	        android:layout_height="wrap_content" 
+	        android:layout_weight="1"
+	        android:text="Xiao Li"
+	        android:gravity="left"
+	        android:id="@+id/nick_name_me"/>
+    </LinearLayout>
+	
+</LinearLayout>

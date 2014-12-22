@@ -1,6 +1,9 @@
 package com.example.implementation;
 
 import java.io.ByteArrayOutputStream;
+import com.example.contact.R;
+
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
@@ -50,6 +53,20 @@ public class Contact
 		this.emails = emails;
 		this.homeAddress = homeAddress;
 		this.nickName = nickName;
+	}
+	
+	public Contact(Context context)
+	{
+		this.portrait = context.getResources().getDrawable(R.drawable.ic_launcher);
+		this.firstName = "default value";
+		this.lastName = "default value";
+		this.company = "default value";
+		this.mobileNumber = "default value";
+		this.workNumber = "default value";
+		this.homeNumber = "default value";
+		this.emails = "default value";
+		this.homeAddress = "default value";
+		this.nickName = "default value";
 	}
 	
 	public void setPortraitData(byte[] pictureData)

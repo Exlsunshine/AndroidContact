@@ -3,6 +3,7 @@ package com.example.activity;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+
 import com.example.contact.R;
 import com.example.implementation.Contact;
 import com.example.implementation.ContactContentProvider;
@@ -53,6 +54,10 @@ public class MainActivity extends Activity
 		List<Contact> contact = db.getAllContacts();
 		for (Contact con : contact)
 		{
+			//ignore my profile
+			if (con.getID() == 1)
+				continue;
+			
 			HashMap<String, Object> map = new HashMap<String, Object>();
 			map.put(DatabaseHandler.KEY_ID, con.getID());
 			map.put(DatabaseHandler.KEY_PORTRAIT, con.getPortrait());
@@ -109,6 +114,20 @@ public class MainActivity extends Activity
 				return true;
 			}
 		});
+	    
+	    MenuItem me = menu.findItem(R.id.action_me);
+	    me.setOnMenuItemClickListener(new OnMenuItemClickListener() 
+	    {
+			@Override
+			public boolean onMenuItemClick(MenuItem arg0) 
+			{
+				Intent it = new Intent(MainActivity.this,MyProfileActivity.class);
+				startActivity(it);
+				
+				return true;
+			}
+		});
+	    
 	    
 	    MenuItem add = menu.findItem(R.id.action_add);
 	    add.setOnMenuItemClickListener(new OnMenuItemClickListener()

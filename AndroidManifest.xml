@@ -4,9 +4,12 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-permission android:name="android.permission.CALL_PHONE"></uses-permission>
+    <uses-permission android:name="android.permission.CALL_PHONE" >
+    </uses-permission>
+
     <uses-feature android:name="android.hardware.camera" />
-    <uses-feature android:name="android.hardware.camera.autofocus" />    
+    <uses-feature android:name="android.hardware.camera.autofocus" />
+
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -16,6 +19,7 @@
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="18" />
@@ -24,41 +28,41 @@
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/ThemeActivity">
+        android:theme="@style/ThemeActivity" >
         <activity
-            android:launchMode="singleTop"
             android:name="com.example.activity.MainActivity"
-            android:label="@string/app_name" >
+            android:label="@string/app_name"
+            android:launchMode="singleTop" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
+
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            
+
             <!-- Search settings : UI -->
             <intent-filter>
-            	<action android:name="android.intent.action.SEARCH" />
-        	</intent-filter>
-        	<meta-data
-				android:name="android.app.searchable"
-				android:resource="@xml/searchable"/>
+                <action android:name="android.intent.action.SEARCH" />
+            </intent-filter>
+
+            <meta-data
+                android:name="android.app.searchable"
+                android:resource="@xml/searchable" />
         </activity>
-        
         <activity
             android:name="com.example.activity.AddNewContactActivity"
             android:label="@string/title_activity_add_new_contact" >
         </activity>
-        
         <activity
             android:name="com.example.activity.ContactDetailsActivity"
             android:label="@string/title_activity_contact_details" >
         </activity>
-        
+
         <!-- Search settings : Content provider -->
-        <provider 
+        <provider
             android:name="com.example.implementation.ContactContentProvider"
-            android:authorities="com.example.implementation.ContactContentProvider">
+            android:authorities="com.example.implementation.ContactContentProvider" >
         </provider>
-        
+
         <activity
             android:name="zxing.moyan.index"
             android:label="@string/app_name" >
@@ -73,5 +77,10 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
+        <activity
+            android:name="com.example.activity.MyProfileActivity"
+            android:label="@string/title_activity_my_profile" >
+        </activity>
     </application>
+
 </manifest>

@@ -13,6 +13,7 @@ import android.util.Log;
 public class DatabaseHandler extends SQLiteOpenHelper
 {
 	private static final String DEBUG_TAG = "DatabaseHandler";
+	private Context context;
 	
 	private static final int DATABASE_VERSION = 1;
 	private static final String DATABASE_NAME = "contactsManager";
@@ -33,6 +34,15 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	public DatabaseHandler(Context context)
 	{
 		super(context, DATABASE_NAME, null, DATABASE_VERSION);
+		this.context = context;
+		 
+	    //Add the first contact as the owner of the app,
+	    //This contact id should be No.1.
+		if (getContactsCount() == 0)
+		{
+			Contact contact = new Contact(context);
+			addContact(contact);
+	    }
 	}
 
 	@Override
@@ -77,14 +87,14 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	public Contact getContact(int id)
 	{
 		SQLiteDatabase db = this.getReadableDatabase();
-		
+		Contact contact = null;
 		Cursor cursor = db.query(TABLE_CONTACTS, new String[] {KEY_ID,KEY_PORTRAIT,KEY_FIRST_NAME,KEY_LAST_NAME,KEY_COMPANY,KEY_MOBILE_NO,KEY_WORK_NO,KEY_HOME_NO,KEY_EMAILS,KEY_HOME_ADDRESS,KEY_NICK_NAME}, KEY_ID + "=?", new String [] {String.valueOf(id)}, null, null, null, null);
 		if (cursor != null)
+		{
 			cursor.moveToFirst();
-		
-		Contact contact = new Contact(Integer.parseInt(cursor.getString(0)), null, cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8), cursor.getString(9),cursor.getString(10));
-		contact.setPortraitData(cursor.getBlob(cursor.getColumnIndexOrThrow(KEY_PORTRAIT)));
-		
+			contact = new Contact(Integer.parseInt(cursor.getString(0)), null, cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8), cursor.getString(9),cursor.getString(10));
+			contact.setPortraitData(cursor.getBlob(cursor.getColumnIndexOrThrow(KEY_PORTRAIT)));
+		}
 		cursor.close();
 		db.close();
 		
