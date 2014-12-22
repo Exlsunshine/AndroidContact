@@ -38,8 +38,21 @@ import com.example.implementation.ImageUtils;
 
 public class AddNewContactActivity extends Activity
 {
+	private static String DEBUG_TAG = "______AddNewContactActivity";
 	public static String INTENT_KEY = "QRCODE_INTENT_KEY";
 	public static String INTENT_INVALID_DATA = "INVALID";
+	public static String MODIFY_FLAG = "FROM_DETAILS_JUST_MODIFIY";
+	
+	/**
+	 * true  if : Create a new contact jump from Qrcode or {@link MainActivity}.<br>
+	 * false if : Modify a contact jump from {@link ContactDetailsActivity}
+	 * */
+	private static boolean CREATE_NEW_DATA = true;
+	
+	/**
+	 * Only valid when {@link CREATE_NEW_DATA} is {@value false}
+	 * */
+	private static int contactId = -1;
 	
 	private Button cancel;
 	private Button done;
@@ -171,7 +184,7 @@ public class AddNewContactActivity extends Activity
         
         String qrInfo = getIntent().getExtras().getString(INTENT_KEY);
         Toast.makeText(AddNewContactActivity.this, qrInfo, Toast.LENGTH_SHORT).show();
-        splitQrInfo(qrInfo);
+        extractQrcodeInfo(qrInfo);
 	}
 	
 	private void addPhoneView(String value, int indexOfPhoneType)
@@ -243,10 +256,17 @@ public class AddNewContactActivity extends Activity
 		layout.startAnimation(alpha);
 	}
 	
-	private boolean splitQrInfo(String qrInfo)
+	private boolean extractQrcodeInfo(String qrInfo)
 	{
 		if (qrInfo.equals(INTENT_INVALID_DATA))
 			return false;
+		
+		if (qrInfo.startsWith(MODIFY_FLAG))
+		{
+			qrInfo = qrInfo.replace(MODIFY_FLAG, "");
+			contactId = Integer.parseInt(this.getIntent().getExtras().getString(DatabaseHandler.KEY_ID));
+			CREATE_NEW_DATA = false;
+		}
 		
 		JSONObject json = new JSONObject(qrInfo);
 		
@@ -267,8 +287,18 @@ public class AddNewContactActivity extends Activity
 	{
 		DatabaseHandler db = new DatabaseHandler(this);
 		Contact contact = new Contact((Drawable)map.get("portrait"), (String)map.get("firstName"), (String)map.get("lastName"), (String)map.get("company"), (String)map.get("Mobile"), (String)map.get("Home"), (String)map.get("Work"), (String)map.get("E-mails"), (String)map.get("Home addres"), (String)map.get("Nick name"));
-		db.addContact(contact);
 		
+		if (CREATE_NEW_DATA)
+		{
+			db.addContact(contact);
+			Log.e(DEBUG_TAG, "CREATE NEW DATA");
+		}
+		else
+		{
+			contact.setID(contactId);
+			db.updateContact(contact);
+			Log.e(DEBUG_TAG, "UPDATE NEW DATA " + contact.getFirstName() + "," + contact.getLastName());
+		}
 		return 0;
 	}
 	

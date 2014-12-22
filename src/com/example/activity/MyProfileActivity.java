@@ -74,6 +74,7 @@ public class MyProfileActivity extends Activity
 		myProfile.setNickName(nickName.getText().toString());
 		
 		db.updateContact(myProfile);
+		//db.close();
 	}
 	
 	private void generateQrcode(String content)

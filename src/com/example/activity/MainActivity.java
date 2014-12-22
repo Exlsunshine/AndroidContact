@@ -246,5 +246,7 @@ public class MainActivity extends Activity
 			}while (managedCursor.moveToNext());
 			contactAdapter.notifyDataSetChanged();
 		}
+    	
+    	managedCursor.close();
 	}
 }
