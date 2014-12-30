@@ -56,6 +56,9 @@ public class MyProfileActivity extends Activity
 		homeAddr = (EditText)findViewById(R.id.home_addr_me);
 		nickName = (EditText)findViewById(R.id.nick_name_me);
 		qrCode = (ImageView)findViewById(R.id.qrcode_me);
+		
+		String content = buildJson();
+		generateQrcode(content);
 	}
 	
 	private void saveToDatabase()

@@ -6,29 +6,28 @@
 	    android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
 	    android:orientation="vertical" >
-	    
 	    <RelativeLayout 
 	    	    android:layout_width="fill_parent"
 		    	android:layout_height="wrap_content">
 		    	<Button
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:text="Cancel" 
+			        android:layout_width="48dip"
+			        android:layout_height="48dip"
 			        android:layout_alignParentLeft="true"
-			        android:id="@+id/cancel"/>
+			        android:id="@+id/cancel"
+			        android:background="@drawable/ic_cancel"/>
 	    	    <TextView
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
-			        android:text="All Contacts" 
+			        android:text="New Friends" 
 			        android:layout_centerInParent="true"
 			        android:id="@+id/tv1"
 			        android:textSize="25dip"/>
 	    	    <Button
-			        android:layout_width="wrap_content"
-			        android:layout_height="wrap_content"
-			        android:text="Done" 
+			        android:layout_width="48dip"
+			        android:layout_height="48dip"
 			        android:layout_alignParentRight="true"
-			        android:id="@+id/done"/>
+			        android:id="@+id/done"
+			        android:background="@drawable/ic_done"/>
 	    	</RelativeLayout>
 	    
 	    <ImageView   
