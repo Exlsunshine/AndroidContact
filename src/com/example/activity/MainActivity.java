@@ -27,12 +27,14 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.SearchView.OnQueryTextListener;
 
 public class MainActivity extends Activity
 {
 	private ListView contactListview;
 	private SlideBar slideBar;
+	private TextView indexIndicator;
 	
 	private ArrayList<Contact> contactList;
 	private ContactListViewAdapter contactAdapter;
@@ -68,6 +70,7 @@ public class MainActivity extends Activity
 	
 	private void initUISettings()
 	{
+		indexIndicator = (TextView)findViewById(R.id.indexIndicator);
 		slideBar = (SlideBar)findViewById(R.id.sliderBar);
 		slideBar.setOnTouchingLetterChangedListener(new LetterListViewListener()); 
 		contactListview = (ListView)findViewById(R.id.contactListview);
@@ -89,6 +92,8 @@ public class MainActivity extends Activity
 		@Override  
 		public void onTouchingLetterChanged(final String s, float y, float x)  
 		{  
+			indexIndicator.setVisibility(View.VISIBLE);
+			indexIndicator.setText(s);
 			for (int i = 0; i < contactList.size(); i++)
 			{
 				String lastName = (String)contactList.get(i).getLastName();
@@ -104,6 +109,7 @@ public class MainActivity extends Activity
 		@Override  
 		public void onTouchingLetterEnd()  
 		{  
+			indexIndicator.setVisibility(View.GONE);
 		}  
 	}
 	

@@ -28,7 +28,15 @@
     	<RelativeLayout 
     	    android:layout_width="fill_parent"
 	    	android:layout_height="fill_parent">
-			<ListView 
+    	    <TextView 
+    	        android:layout_width="fill_parent"
+	    		android:layout_height="wrap_content"
+	    		android:text="#"
+	    		android:visibility="gone"
+	    		android:id="@+id/indexIndicator"/>
+			
+			<ListView
+			    android:layout_below="@id/indexIndicator" 
 	            android:layout_width="fill_parent"
 		    	android:layout_height="fill_parent"
 		    	android:id="@+id/contactListview">
