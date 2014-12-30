@@ -1,11 +1,8 @@
 package com.example.activity;
 
-import org.official.json.JSONObject;
-
 import com.example.contact.R;
 import com.example.implementation.Contact;
 import com.example.implementation.DatabaseHandler;
-import com.zijunlin.Zxing.Demo.CaptureActivity;
 
 import android.net.Uri;
 import android.os.Bundle;
@@ -13,14 +10,12 @@ import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
 import android.drm.DrmStore.Action;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 public class ContactDetailsActivity extends Activity
 {
@@ -32,7 +27,6 @@ public class ContactDetailsActivity extends Activity
     
 	private int contactId = -1;
 	private Contact contact = null;
-	
 	@Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -103,36 +97,6 @@ public class ContactDetailsActivity extends Activity
 		{
 			finish();
 		}
-		else if (item.getItemId() == R.id.action_edit)
-		{
-			Intent intent1 = new Intent();
-			intent1.putExtra(AddNewContactActivity.INTENT_KEY, AddNewContactActivity.MODIFY_FLAG + buildJson());
-			intent1.putExtra(DatabaseHandler.KEY_ID, String.valueOf(contactId));
-			intent1.setClass(ContactDetailsActivity.this,AddNewContactActivity.class);
-			startActivity(intent1);
-			finish();
-		}
 		return true;
-	}
-    
-    private String buildJson()
-	{
-		JSONObject jsonObj = new JSONObject();
-		DatabaseHandler db = new DatabaseHandler(ContactDetailsActivity.this);
-		Contact myProfile = db.getContact(contactId);
-		
-		jsonObj.put(DatabaseHandler.KEY_FIRST_NAME, myProfile.getFirstName());
-		jsonObj.put(DatabaseHandler.KEY_LAST_NAME, myProfile.getLastName());
-		jsonObj.put(DatabaseHandler.KEY_COMPANY, myProfile.getCompany());
-		jsonObj.put(DatabaseHandler.KEY_MOBILE_NO, myProfile.getMobileNumber());
-		jsonObj.put(DatabaseHandler.KEY_HOME_NO, myProfile.getHomeNumber());
-		jsonObj.put(DatabaseHandler.KEY_WORK_NO, myProfile.getWrokNumber());
-		jsonObj.put(DatabaseHandler.KEY_EMAILS, myProfile.getEmails());
-		jsonObj.put(DatabaseHandler.KEY_HOME_ADDRESS, myProfile.getHomeAddress());
-		jsonObj.put(DatabaseHandler.KEY_NICK_NAME, myProfile.getNickName());
-		
-		Log.e("_________My json", jsonObj.toString());
-		
-		return jsonObj.toString();
 	}
 }

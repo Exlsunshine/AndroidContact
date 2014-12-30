@@ -63,18 +63,24 @@ public class MyProfileActivity extends Activity
 		DatabaseHandler db = new DatabaseHandler(MyProfileActivity.this);
 		Contact myProfile = db.getContact(1);
 		
-		myProfile.setFirstName(firstName.getText().toString());
-		myProfile.setLastName(lastName.getText().toString());
-		myProfile.setCompany(company.getText().toString());
-		myProfile.setMobileNumber(mobileNo.getText().toString());
-		myProfile.setHomeNumber(homeNo.getText().toString());
-		myProfile.setWorkNumber(workNo.getText().toString());
-		myProfile.setEmails(emails.getText().toString());
-		myProfile.setHomeAddress(homeAddr.getText().toString());
-		myProfile.setNickName(nickName.getText().toString());
-		
-		db.updateContact(myProfile);
-		//db.close();
+		if (myProfile == null)
+		{
+			myProfile = new Contact(1, null, firstName.getText().toString(), lastName.getText().toString(), company.getText().toString(), mobileNo.getText().toString(), workNo.getText().toString(), homeNo.getText().toString(), emails.getText().toString(), homeAddr.getText().toString(), nickName.getText().toString());
+			db.addContact(myProfile);
+		}
+		else
+		{
+			myProfile.setFirstName(firstName.getText().toString());
+			myProfile.setLastName(lastName.getText().toString());
+			myProfile.setCompany(company.getText().toString());
+			myProfile.setMobileNumber(mobileNo.getText().toString());
+			myProfile.setHomeNumber(homeNo.getText().toString());
+			myProfile.setWorkNumber(workNo.getText().toString());
+			myProfile.setEmails(emails.getText().toString());
+			myProfile.setHomeAddress(homeAddr.getText().toString());
+			myProfile.setNickName(nickName.getText().toString());
+			db.updateContact(myProfile);
+		}
 	}
 	
 	private void generateQrcode(String content)

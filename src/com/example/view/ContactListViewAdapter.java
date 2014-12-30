@@ -1,10 +1,8 @@
 package com.example.view;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import com.example.contact.R;
-import com.example.implementation.DatabaseHandler;
-
+import com.example.implementation.Contact;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.view.LayoutInflater;
@@ -16,10 +14,10 @@ import android.widget.TextView;
 
 public class ContactListViewAdapter extends BaseAdapter
 {
-	private ArrayList<HashMap<String,Object>> list;
+	private ArrayList<Contact> list;
 	private LayoutInflater inflater;
 	
-	public ContactListViewAdapter(Context context,ArrayList<HashMap<String, Object>> list)
+	public ContactListViewAdapter(Context context,ArrayList<Contact> list)
 	{
 		this.inflater = LayoutInflater.from(context);
 		this.list = list;
@@ -59,9 +57,9 @@ public class ContactListViewAdapter extends BaseAdapter
 		else
 			item = (ListViewItem)arg1.getTag();
 		
-		item.protrait.setBackground((Drawable)list.get(arg0).get(DatabaseHandler.KEY_PORTRAIT));
-		item.name.setText((String)list.get(arg0).get(DatabaseHandler.KEY_LAST_NAME) + " " + (String)list.get(arg0).get(DatabaseHandler.KEY_FIRST_NAME));
-		item.phoneNo.setText((String)list.get(arg0).get(DatabaseHandler.KEY_MOBILE_NO));
+		item.protrait.setBackground((Drawable)list.get(arg0).getPortrait());
+		item.name.setText((String)list.get(arg0).getLastName() + " " + (String)list.get(arg0).getFirstName());
+		item.phoneNo.setText((String)list.get(arg0).getMobileNumber());
 		
 		return arg1;
 	}

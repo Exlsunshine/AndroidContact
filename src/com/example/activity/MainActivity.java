@@ -1,13 +1,13 @@
 package com.example.activity;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Collections;
 import java.util.List;
-
 import com.example.contact.R;
 import com.example.implementation.Contact;
 import com.example.implementation.ContactContentProvider;
 import com.example.implementation.DatabaseHandler;
+import com.example.implementation.SlideBar;
 import com.example.view.ContactListViewAdapter;
 import com.zijunlin.Zxing.Demo.CaptureActivity;
 import android.net.Uri;
@@ -32,8 +32,9 @@ import android.widget.SearchView.OnQueryTextListener;
 public class MainActivity extends Activity
 {
 	private ListView contactListview;
+	private SlideBar slideBar;
 	
-	private ArrayList<HashMap<String,Object>> contactList;
+	private ArrayList<Contact> contactList;
 	private ContactListViewAdapter contactAdapter;
 	
 	@Override
@@ -48,7 +49,7 @@ public class MainActivity extends Activity
 	
 	private void initVariable()
 	{
-		contactList = new ArrayList<HashMap<String,Object>>();
+		contactList = new ArrayList<Contact>();
 		
 		DatabaseHandler db = new DatabaseHandler(this);
 		List<Contact> contact = db.getAllContacts();
@@ -57,22 +58,9 @@ public class MainActivity extends Activity
 			//ignore my profile
 			if (con.getID() == 1)
 				continue;
-			
-			HashMap<String, Object> map = new HashMap<String, Object>();
-			map.put(DatabaseHandler.KEY_ID, con.getID());
-			map.put(DatabaseHandler.KEY_PORTRAIT, con.getPortrait());
-			map.put(DatabaseHandler.KEY_FIRST_NAME, con.getFirstName());
-			map.put(DatabaseHandler.KEY_LAST_NAME, con.getLastName());
-			map.put(DatabaseHandler.KEY_COMPANY, con.getCompany());
-			map.put(DatabaseHandler.KEY_MOBILE_NO, con.getMobileNumber());
-			map.put(DatabaseHandler.KEY_WORK_NO, con.getWrokNumber());
-			map.put(DatabaseHandler.KEY_HOME_NO, con.getHomeNumber());
-			map.put(DatabaseHandler.KEY_EMAILS, con.getEmails());
-			map.put(DatabaseHandler.KEY_HOME_ADDRESS, con.getHomeAddress());
-			map.put(DatabaseHandler.KEY_NICK_NAME, con.getNickName());
-
-			contactList.add(map);
+			contactList.add(con);
 		}
+		Collections.sort(contactList);
 		
 		contactAdapter = new ContactListViewAdapter(this,contactList);
 		contactListview.setAdapter(contactAdapter);
@@ -80,6 +68,8 @@ public class MainActivity extends Activity
 	
 	private void initUISettings()
 	{
+		slideBar = (SlideBar)findViewById(R.id.sliderBar);
+		slideBar.setOnTouchingLetterChangedListener(new LetterListViewListener()); 
 		contactListview = (ListView)findViewById(R.id.contactListview);
 		contactListview.setOnItemClickListener(new OnItemClickListener()
 		{
@@ -87,11 +77,34 @@ public class MainActivity extends Activity
 			public void onItemClick(AdapterView<?> arg0, View arg1, int arg2,long arg3) 
 			{
 				Intent it = new Intent(MainActivity.this, ContactDetailsActivity.class);
-				it.putExtra(DatabaseHandler.KEY_ID, ((Integer)contactList.get(arg2).get(DatabaseHandler.KEY_ID)).intValue());
+				it.putExtra(DatabaseHandler.KEY_ID, ((Integer)contactList.get(arg2).getID()).intValue());
 				
 				MainActivity.this.startActivity(it);
 			}
 		});
+	}
+	
+	private class LetterListViewListener implements  com.example.implementation.SlideBar.OnTouchingLetterChangedListener  
+	{  
+		@Override  
+		public void onTouchingLetterChanged(final String s, float y, float x)  
+		{  
+			for (int i = 0; i < contactList.size(); i++)
+			{
+				String lastName = (String)contactList.get(i).getLastName();
+				lastName = lastName.toUpperCase();
+				if (lastName.startsWith(String.valueOf(s)))
+				{
+					contactListview.setSelection(i);
+					return ;
+				}
+			}
+		}  
+		
+		@Override  
+		public void onTouchingLetterEnd()  
+		{  
+		}  
 	}
 	
 	@Override
@@ -230,23 +243,10 @@ public class MainActivity extends Activity
 				Contact con = new Contact(Integer.parseInt(managedCursor.getString(0)), null, managedCursor.getString(2), managedCursor.getString(3), managedCursor.getString(4), managedCursor.getString(5), managedCursor.getString(6), managedCursor.getString(7), managedCursor.getString(8), managedCursor.getString(9), managedCursor.getString(10));
 				con.setPortraitData(managedCursor.getBlob(managedCursor.getColumnIndexOrThrow(DatabaseHandler.KEY_PORTRAIT)));
 				
-				HashMap<String, Object> map = new HashMap<String, Object>();
-				map.put(DatabaseHandler.KEY_ID, con.getID());
-				map.put(DatabaseHandler.KEY_PORTRAIT, con.getPortrait());
-				map.put(DatabaseHandler.KEY_FIRST_NAME, con.getFirstName());
-				map.put(DatabaseHandler.KEY_LAST_NAME, con.getLastName());
-				map.put(DatabaseHandler.KEY_COMPANY, con.getCompany());
-				map.put(DatabaseHandler.KEY_MOBILE_NO, con.getMobileNumber());
-				map.put(DatabaseHandler.KEY_WORK_NO, con.getWrokNumber());
-				map.put(DatabaseHandler.KEY_HOME_NO, con.getHomeNumber());
-				map.put(DatabaseHandler.KEY_EMAILS, con.getEmails());
-				map.put(DatabaseHandler.KEY_HOME_ADDRESS, con.getHomeAddress());
-				map.put(DatabaseHandler.KEY_NICK_NAME, con.getNickName());
-				contactList.add(map);
+				contactList.add(con);
 			}while (managedCursor.moveToNext());
+			Collections.sort(contactList);
 			contactAdapter.notifyDataSetChanged();
 		}
-    	
-    	managedCursor.close();
 	}
 }

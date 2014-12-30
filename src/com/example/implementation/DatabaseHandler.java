@@ -69,6 +69,8 @@ public class DatabaseHandler extends SQLiteOpenHelper
 		SQLiteDatabase db = this.getWritableDatabase();
 		
 		ContentValues values = new ContentValues();
+		if (contact.getID() != -1)
+			values.put(KEY_ID, contact.getID());
 		values.put(KEY_PORTRAIT, contact.getPortraitData());
 		values.put(KEY_FIRST_NAME, contact.getFirstName());
 		values.put(KEY_LAST_NAME, contact.getLastName());
@@ -89,7 +91,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 		SQLiteDatabase db = this.getReadableDatabase();
 		Contact contact = null;
 		Cursor cursor = db.query(TABLE_CONTACTS, new String[] {KEY_ID,KEY_PORTRAIT,KEY_FIRST_NAME,KEY_LAST_NAME,KEY_COMPANY,KEY_MOBILE_NO,KEY_WORK_NO,KEY_HOME_NO,KEY_EMAILS,KEY_HOME_ADDRESS,KEY_NICK_NAME}, KEY_ID + "=?", new String [] {String.valueOf(id)}, null, null, null, null);
-		if (cursor != null)
+		if (cursor != null && cursor.getCount() != 0)
 		{
 			cursor.moveToFirst();
 			contact = new Contact(Integer.parseInt(cursor.getString(0)), null, cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8), cursor.getString(9),cursor.getString(10));
@@ -105,7 +107,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 	{
 		List<Contact> contactList = new ArrayList<Contact>();
 		
-		String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS;
+		String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS + " ORDER BY " + KEY_LAST_NAME + " COLLATE NOCASE;";
 		SQLiteDatabase db = this.getReadableDatabase();
 		Cursor cursor = db.rawQuery(selectQuery, null);
 		
@@ -116,6 +118,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 				Contact contact = new Contact(Integer.parseInt(cursor.getString(0)), null, cursor.getString(2), cursor.getString(3), cursor.getString(4), cursor.getString(5), cursor.getString(6), cursor.getString(7), cursor.getString(8), cursor.getString(9), cursor.getString(10));
 				contact.setPortraitData(cursor.getBlob(cursor.getColumnIndexOrThrow(KEY_PORTRAIT)));
 				contactList.add(contact);
+				Log.e(DEBUG_TAG, contact.getLastName());
 			}while (cursor.moveToNext());
 		}
 		

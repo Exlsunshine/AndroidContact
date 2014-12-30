@@ -84,15 +84,13 @@ public final class R {
         public static final int portrait=0x7f020016;
         public static final int question_mark=0x7f020017;
         public static final int refresh=0x7f020018;
-        public static final int sky_background=0x7f020019;
     }
     public static final class id {
-        public static final int action_add=0x7f090035;
-        public static final int action_edit=0x7f090031;
-        public static final int action_me=0x7f090036;
-        public static final int action_refresh=0x7f090032;
-        public static final int action_scan=0x7f090034;
-        public static final int action_search=0x7f090033;
+        public static final int action_add=0x7f090034;
+        public static final int action_me=0x7f090035;
+        public static final int action_refresh=0x7f090031;
+        public static final int action_scan=0x7f090033;
+        public static final int action_search=0x7f090032;
         public static final int action_settings=0x7f090030;
         public static final int add_others=0x7f090016;
         public static final int add_others_outter_layout=0x7f090015;
@@ -104,7 +102,7 @@ public final class R {
         public static final int cancel=0x7f09000c;
         public static final int company=0x7f090012;
         public static final int company_me=0x7f090023;
-        public static final int contactListview=0x7f09001f;
+        public static final int contactListview=0x7f09001e;
         public static final int decode=0x7f090001;
         public static final int decode_failed=0x7f090002;
         public static final int decode_succeeded=0x7f090003;
@@ -117,7 +115,6 @@ public final class R {
         public static final int first_name_me=0x7f090021;
         public static final int home_addr_me=0x7f090028;
         public static final int home_no_me=0x7f090026;
-        public static final int img=0x7f09001e;
         public static final int imgCamera=0x7f090018;
         public static final int imgCenter=0x7f090017;
         public static final int last_name=0x7f090011;
@@ -127,10 +124,10 @@ public final class R {
         public static final int mobileNo_details_layout=0x7f09001b;
         public static final int mobile_no_me=0x7f090024;
         public static final int name=0x7f09002a;
-        public static final int name_details_layout=0x7f09001a;
+        public static final int name_details_layout=0x7f090019;
         public static final int nick_name_me=0x7f090029;
         public static final int portrait=0x7f09000f;
-        public static final int portrait_details_layout=0x7f090019;
+        public static final int portrait_details_layout=0x7f09001a;
         public static final int preview_view=0x7f09002c;
         public static final int qrcode_me=0x7f090020;
         public static final int quit=0x7f090007;
@@ -138,6 +135,7 @@ public final class R {
         public static final int return_scan_result=0x7f090009;
         public static final int search_book_contents_failed=0x7f09000a;
         public static final int search_book_contents_succeeded=0x7f09000b;
+        public static final int sliderBar=0x7f09001f;
         public static final int sms=0x7f09001d;
         public static final int titleText=0x7f09002f;
         public static final int top_relative=0x7f09002e;
@@ -148,11 +146,10 @@ public final class R {
     public static final class layout {
         public static final int activity_add_new_contact=0x7f030000;
         public static final int activity_contact_details=0x7f030001;
-        public static final int activity_contact_details_circle=0x7f030002;
-        public static final int activity_main=0x7f030003;
-        public static final int activity_my_profile=0x7f030004;
-        public static final int contact_listview_item=0x7f030005;
-        public static final int scanner=0x7f030006;
+        public static final int activity_main=0x7f030002;
+        public static final int activity_my_profile=0x7f030003;
+        public static final int contact_listview_item=0x7f030004;
+        public static final int scanner=0x7f030005;
     }
     public static final class menu {
         public static final int add_new_contact=0x7f0c0000;

@@ -2,7 +2,6 @@ package com.example.implementation;
 
 import java.io.ByteArrayOutputStream;
 import com.example.contact.R;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -10,7 +9,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
-public class Contact
+public class Contact implements Comparable<Contact>
 {
 	private static String DEBUG_TAG = "Contact________";
 	
@@ -43,6 +42,7 @@ public class Contact
 	
 	public Contact(Drawable portrait, String firstName, String lastName, String company, String mobileNumber, String workNumber, String homeNumber, String emails, String homeAddress, String nickName)
 	{
+		this.id = -1;
 		this.portrait = portrait;
 		this.firstName = firstName;
 		this.lastName = lastName;
@@ -176,5 +176,14 @@ public class Contact
 	
 	public void setHomeAddress(String homeAddress) { this.homeAddress = homeAddress; }
 	
-	public void setNickName(String NickName) { this.nickName = nickName; }
+	public void setNickName(String nickName) { this.nickName = nickName; }
+
+	@Override
+	public int compareTo(Contact o)
+	{
+		String currentStr = PinyinUtils.getPYIndexStr(this.lastName, true);
+		String otherStr = PinyinUtils.getPYIndexStr(o.lastName, true);
+		
+		return currentStr.compareToIgnoreCase(otherStr);
+	}
 }

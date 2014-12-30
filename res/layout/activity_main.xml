@@ -25,10 +25,20 @@
 		        android:focusable="true"/>
     	</RelativeLayout>
         
-        <ListView 
-            android:layout_width="fill_parent"
-	    	android:layout_height="fill_parent"
-	    	android:id="@+id/contactListview">
-        </ListView>
+    	<RelativeLayout 
+    	    android:layout_width="fill_parent"
+	    	android:layout_height="fill_parent">
+			<ListView 
+	            android:layout_width="fill_parent"
+		    	android:layout_height="fill_parent"
+		    	android:id="@+id/contactListview">
+        	</ListView>
+        	
+			<com.example.implementation.SlideBar 
+			    android:layout_width="30dip"
+		    	android:layout_height="fill_parent"
+		    	android:layout_alignParentRight="true"
+		    	android:id="@+id/sliderBar"/>
+    	</RelativeLayout>
     </LinearLayout>
 </RelativeLayout>
