@@ -37,9 +37,11 @@ import com.example.implementation.DatabaseHandler;
 import com.example.implementation.ImageUtils;
 
 public class AddNewContactActivity extends Activity
-{
+{	
 	public static String INTENT_KEY = "QRCODE_INTENT_KEY";
 	public static String INTENT_INVALID_DATA = "INVALID";
+
+	private static String DEBUG_TAG = "AddNewContactActivity_________";
 	
 	private Button cancel;
 	private Button done;
@@ -138,16 +140,18 @@ public class AddNewContactActivity extends Activity
 				map.put("company", ((EditText)findViewById(R.id.company)).getText().toString());
 				
 				LinearLayout addPhoneOutterLayout = (LinearLayout)findViewById(R.id.add_phone_outter_layout);
-				for (int i = 1; i < addPhoneOutterLayout.getChildCount(); i++)
+				for (int i = 2; i < addPhoneOutterLayout.getChildCount(); i++)
 				{
 					View view = addPhoneOutterLayout.getChildAt(i);
 					Spinner sp = (Spinner)view.findViewById(110);
 					EditText et = (EditText)view.findViewById(10);
+					Log.e(DEBUG_TAG, phoneType[sp.getSelectedItemPosition()]);
+					Log.e(DEBUG_TAG, et.getText().toString());
 					map.put(phoneType[sp.getSelectedItemPosition()], et.getText().toString());
 				}
 				
 				LinearLayout addOthersOutterLayout = (LinearLayout)findViewById(R.id.add_others_outter_layout);
-				for (int i = 1; i < addOthersOutterLayout.getChildCount(); i++)
+				for (int i = 2; i < addOthersOutterLayout.getChildCount(); i++)
 				{
 					View view = addOthersOutterLayout.getChildAt(i);
 					Spinner sp = (Spinner)view.findViewById(110);

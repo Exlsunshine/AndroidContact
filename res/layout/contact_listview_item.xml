@@ -5,28 +5,53 @@
     android:orientation="horizontal" >
     
     <ImageView 
+        android:layout_marginLeft="20dip"
         android:layout_width="70dip"
         android:layout_height="70dip"
         android:background="@drawable/ic_launcher"
         android:id="@+id/portrait"/>
+    
     <LinearLayout 
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:orientation="vertical">
-        <TextView 
-			android:layout_width="fill_parent"
-     		android:layout_height="wrap_content"
-     		android:gravity="center"
-            android:layout_weight="1"
-     		android:text="name"
-            android:id="@+id/name"/>
-        <TextView 
-			android:layout_width="fill_parent"
-     		android:layout_height="wrap_content" 
-     		android:gravity="center"
-            android:layout_weight="1"
-     		android:text="phone no."
-            android:id="@+id/mobileNo"/>
+        android:orientation="vertical"
+        android:layout_marginLeft="20dip"
+        android:gravity="center_vertical">
+        <LinearLayout 
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal">
+			<TextView 
+				android:layout_width="wrap_content"
+	     		android:layout_height="wrap_content"
+	     		android:text="Name"
+				android:textSize="15sp"
+				android:textColor="#cccccc"/>
+	        <TextView 
+				android:layout_width="wrap_content"
+	     		android:layout_height="wrap_content"
+	            android:layout_marginLeft="10dip"
+				android:textSize="20sp"
+	            android:id="@+id/name"/>
+		</LinearLayout>
+		
+        
+        <LinearLayout 
+	        android:layout_width="fill_parent"
+	        android:layout_height="wrap_content"
+	        android:orientation="horizontal">
+			<TextView 
+				android:layout_width="wrap_content"
+	     		android:layout_height="wrap_content"
+	     		android:text="Mobile"
+				android:textSize="15sp"
+				android:textColor="#cccccc"/>
+	        <TextView 
+				android:layout_width="wrap_content"
+	     		android:layout_height="wrap_content" 
+	            android:layout_marginLeft="10dip"
+				android:textSize="20sp"
+	            android:id="@+id/mobileNo"/>
+		</LinearLayout>
     </LinearLayout>
-
 </LinearLayout>
