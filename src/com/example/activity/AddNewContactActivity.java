@@ -424,6 +424,13 @@ public class AddNewContactActivity extends Activity
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		getMenuInflater().inflate(R.menu.add_new_contact, menu);
+		
+		MenuItem item = menu.findItem(R.id.action_delete);
+		if (ENTER_TYPE == EnterType.FROM_EDIT_BUTTON)
+			item.setVisible(true);
+		else
+			item.setVisible(false);
+		
 		return true;
 	}
 	
@@ -433,6 +440,14 @@ public class AddNewContactActivity extends Activity
 		if (item.getItemId() == android.R.id.home)
 		{
 			finish();
+		}
+		else if (item.getItemId() == R.id.action_delete)
+		{
+			DatabaseHandler db = new DatabaseHandler(AddNewContactActivity.this);
+			Contact contact = db.getContact(Integer.parseInt(qrInfo));
+			db.deleteContact(contact);
+			Toast.makeText(AddNewContactActivity.this, "Delete successful!", Toast.LENGTH_SHORT).show();
+			this.finish();
 		}
 		return true;
 	}
