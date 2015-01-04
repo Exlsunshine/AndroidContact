@@ -10,11 +10,14 @@
 	    	    android:layout_width="fill_parent"
 		    	android:layout_height="wrap_content">
 		    	<Button
-			        android:layout_width="48dip"
+			        android:layout_width="wrap_content"
 			        android:layout_height="48dip"
 			        android:layout_alignParentLeft="true"
 			        android:id="@+id/cancel"
-			        android:background="@drawable/ic_cancel"/>
+			       	android:background="@color/transparent"
+			       	android:text="Cancel"
+			       	android:textColor="#00b9e8"/>
+		    	<!-- android:background="@drawable/ic_cancel" -->
 	    	    <TextView
 			        android:layout_width="wrap_content"
 			        android:layout_height="wrap_content"
@@ -23,11 +26,14 @@
 			        android:id="@+id/tv1"
 			        android:textSize="25dip"/>
 	    	    <Button
-			        android:layout_width="48dip"
+			        android:layout_width="wrap_content"
 			        android:layout_height="48dip"
 			        android:layout_alignParentRight="true"
 			        android:id="@+id/done"
-			        android:background="@drawable/ic_done"/>
+			       	android:background="@color/transparent"
+			       	android:text="Save"
+			       	android:textColor="#00b9e8"/>
+	    	    <!--  android:background="@drawable/ic_done" -->
 	    	</RelativeLayout>
 	    
 	    <ImageView   
@@ -76,11 +82,20 @@
 		    	android:layout_height="wrap_content"
 		    	android:orientation="vertical"
 		    	android:id="@+id/add_phone_outter_layout">
+	    	    <TextView 
+                    android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+                    android:textColor="#cccccc"
+                    android:text="Basic info"
+                    android:layout_marginLeft="10dip"/>
 	    	    <Button 
 	    	        android:layout_width="wrap_content"
 	    	        android:layout_height="wrap_content"
-	    	        android:text="add phone"
-	    	        android:id="@+id/add_phone"/>
+	    	        android:text="Add phone"
+	    	        android:id="@+id/add_phone"
+	    	        android:layout_gravity="center_horizontal"
+	    	        android:background="@android:color/transparent"
+	    	        android:textColor="#00b9e8"/>
 	    	</LinearLayout>
 	        
 	    	<ImageView 
@@ -93,11 +108,20 @@
 		    	android:layout_height="wrap_content"
 		    	android:orientation="vertical"
 		    	android:id="@+id/add_others_outter_layout">
+	    	    <TextView 
+                    android:layout_width="wrap_content"
+					android:layout_height="wrap_content"
+                    android:textColor="#cccccc"
+                    android:text="Advanced info"
+                    android:layout_marginLeft="10dip"/>
 	    	    <Button 
 	    	        android:layout_width="wrap_content"
 	    	        android:layout_height="wrap_content"
-	    	        android:text="add others"
-	    	        android:id="@+id/add_others"/>
+	    	        android:text="Add others"
+	    	        android:id="@+id/add_others"
+	    	        android:layout_gravity="center_horizontal"
+	    	        android:background="@android:color/transparent"
+	    	        android:textColor="#00b9e8"/>
 	    	</LinearLayout>
 	    	
 	        <AbsoluteLayout 

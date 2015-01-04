@@ -58,15 +58,15 @@ public class Contact implements Comparable<Contact>
 	public Contact(Context context)
 	{
 		this.portrait = context.getResources().getDrawable(R.drawable.ic_launcher);
-		this.firstName = "default value";
-		this.lastName = "default value";
-		this.company = "default value";
-		this.mobileNumber = "default value";
-		this.workNumber = "default value";
-		this.homeNumber = "default value";
-		this.emails = "default value";
-		this.homeAddress = "default value";
-		this.nickName = "default value";
+		this.firstName = "none";
+		this.lastName = "none";
+		this.company = "none";
+		this.mobileNumber = "none";
+		this.workNumber = "none";
+		this.homeNumber = "none";
+		this.emails = "none";
+		this.homeAddress = "none";
+		this.nickName = "none";
 	}
 	
 	public void setPortraitData(byte[] pictureData)

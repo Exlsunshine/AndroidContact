@@ -55,10 +55,18 @@ public class AddNewContactActivity extends Activity
 	
 	private String [] phoneType = {"Mobile","Home","Work"};
 	private String [] othersType = {"E-mails","Home addres","Nick name"};
-	//private String [] groupType = {"College","Family","Friends","ICE"};
 	private int cnt = 0;
 	private int othersId = 0;
 	private boolean hasInit = false;
+	
+	private int ENTER_TYPE;
+	private static class EnterType
+	{
+		static public int FROM_ADD_BUTTON = 1;
+		static public int FROM_SCAN_BUTTON = 2;
+		static public int FROM_EDIT_BUTTON = 3;
+	}
+	String qrInfo;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -148,10 +156,10 @@ public class AddNewContactActivity extends Activity
 				}
 				
 				map.put("portrait", portrait.getBackground());
+				Contact contact = new Contact((Drawable)map.get("portrait"), (String)map.get("firstName"), (String)map.get("lastName"), (String)map.get("company"), (String)map.get("Mobile"), (String)map.get("Home"), (String)map.get("Work"), (String)map.get("E-mails"), (String)map.get("Home addres"), (String)map.get("Nick name"));
+				saveToDatabase(contact);
 				
-				saveToDatabase(map);
-				
-				Toast.makeText(AddNewContactActivity.this, "done", Toast.LENGTH_LONG).show();
+				AddNewContactActivity.this.finish();
 			}
 		});
 		
@@ -169,7 +177,7 @@ public class AddNewContactActivity extends Activity
         ActionBar actionBar = getActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
         
-        String qrInfo = getIntent().getExtras().getString(INTENT_KEY);
+        qrInfo = getIntent().getExtras().getString(INTENT_KEY);
         Toast.makeText(AddNewContactActivity.this, qrInfo, Toast.LENGTH_SHORT).show();
         splitQrInfo(qrInfo);
 	}
@@ -243,33 +251,74 @@ public class AddNewContactActivity extends Activity
 		layout.startAnimation(alpha);
 	}
 	
-	private boolean splitQrInfo(String qrInfo)
+	private boolean isNumberic(String num)
 	{
-		if (qrInfo.equals(INTENT_INVALID_DATA))
-			return false;
-		
-		JSONObject json = new JSONObject(qrInfo);
-		
-		firstName.setText(json.getString(DatabaseHandler.KEY_FIRST_NAME));
-		lastName.setText(json.getString(DatabaseHandler.KEY_LAST_NAME));
-		company.setText(json.getString(DatabaseHandler.KEY_COMPANY));
-		addPhoneView(json.getString(DatabaseHandler.KEY_MOBILE_NO), 0);
-		addPhoneView(json.getString(DatabaseHandler.KEY_HOME_NO), 1);
-		addPhoneView(json.getString(DatabaseHandler.KEY_WORK_NO), 2);
-		addOthersView(json.getString(DatabaseHandler.KEY_EMAILS),0);
-		addOthersView(json.getString(DatabaseHandler.KEY_HOME_ADDRESS),1);
-		addOthersView(json.getString(DatabaseHandler.KEY_NICK_NAME),2);
+		for (char c : num.toCharArray())
+		{
+			if (!Character.isDigit(c))
+				return false;
+		}
 		
 		return true;
 	}
 	
-	private int saveToDatabase(Map<String,Object> map)
+	private void splitQrInfo(String qrInfo)
+	{
+		if (qrInfo.equals(INTENT_INVALID_DATA))
+		{
+			ENTER_TYPE = EnterType.FROM_ADD_BUTTON;
+		}
+		else if (isNumberic(qrInfo))
+		{
+			DatabaseHandler db = new DatabaseHandler(this);
+			Contact contact = db.getContact(Integer.parseInt(qrInfo));
+			
+			firstName.setText(contact.getFirstName());
+			lastName.setText(contact.getLastName());
+			company.setText(contact.getCompany());
+			addPhoneView(contact.getMobileNumber(), 0);
+			addPhoneView(contact.getHomeNumber(), 1);
+			addPhoneView(contact.getWrokNumber(), 2);
+			addOthersView(contact.getEmails(),0);
+			addOthersView(contact.getHomeAddress(),1);
+			addOthersView(contact.getNickName(),2);
+			portrait.setBackground(contact.getPortrait());
+			
+			ENTER_TYPE = EnterType.FROM_EDIT_BUTTON;
+		}
+		else
+		{
+			JSONObject json = new JSONObject(qrInfo);
+			
+			firstName.setText(json.getString(DatabaseHandler.KEY_FIRST_NAME));
+			lastName.setText(json.getString(DatabaseHandler.KEY_LAST_NAME));
+			company.setText(json.getString(DatabaseHandler.KEY_COMPANY));
+			addPhoneView(json.getString(DatabaseHandler.KEY_MOBILE_NO), 0);
+			addPhoneView(json.getString(DatabaseHandler.KEY_HOME_NO), 1);
+			addPhoneView(json.getString(DatabaseHandler.KEY_WORK_NO), 2);
+			addOthersView(json.getString(DatabaseHandler.KEY_EMAILS),0);
+			addOthersView(json.getString(DatabaseHandler.KEY_HOME_ADDRESS),1);
+			addOthersView(json.getString(DatabaseHandler.KEY_NICK_NAME),2);
+			
+			ENTER_TYPE = EnterType.FROM_SCAN_BUTTON;
+		}
+	}
+	
+	private void saveToDatabase(Contact contact)
 	{
 		DatabaseHandler db = new DatabaseHandler(this);
-		Contact contact = new Contact((Drawable)map.get("portrait"), (String)map.get("firstName"), (String)map.get("lastName"), (String)map.get("company"), (String)map.get("Mobile"), (String)map.get("Home"), (String)map.get("Work"), (String)map.get("E-mails"), (String)map.get("Home addres"), (String)map.get("Nick name"));
-		db.addContact(contact);
 		
-		return 0;
+		if (ENTER_TYPE == EnterType.FROM_ADD_BUTTON || ENTER_TYPE == EnterType.FROM_SCAN_BUTTON)
+		{
+			db.addContact(contact);
+			Toast.makeText(AddNewContactActivity.this, "Add successful!", Toast.LENGTH_LONG).show();
+		}
+		else if (ENTER_TYPE == EnterType.FROM_EDIT_BUTTON)
+		{
+			contact.setID(Integer.parseInt(qrInfo));
+			db.updateContact(contact);
+			Toast.makeText(AddNewContactActivity.this, "Update successful!", Toast.LENGTH_LONG).show();
+		}
 	}
 	
 	private OnClickListener deleteClickListener = new OnClickListener()

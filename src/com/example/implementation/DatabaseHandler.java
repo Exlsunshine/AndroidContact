@@ -146,6 +146,7 @@ public class DatabaseHandler extends SQLiteOpenHelper
 		SQLiteDatabase db = this.getWritableDatabase();
 		ContentValues values = new ContentValues();
 		
+		values.put(KEY_PORTRAIT, contact.getPortraitData());
 		values.put(KEY_FIRST_NAME, contact.getFirstName());
 		values.put(KEY_LAST_NAME, contact.getLastName());
 		values.put(KEY_COMPANY, contact.getCompany());

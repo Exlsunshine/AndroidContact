@@ -3,30 +3,36 @@ package com.example.activity;
 import com.example.contact.R;
 import com.example.implementation.Contact;
 import com.example.implementation.DatabaseHandler;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Intent;
-import android.drm.DrmStore.Action;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 public class ContactDetailsActivity extends Activity
 {
-	private TextView name;
 	private ImageView portrait;
+	private Button dialMobile;
+	private Button dialHome;
+	private Button dialWork;
+	private Button sms;
 	private TextView mobileNo;
-	private ImageView dial;
-	private ImageView sms;
+	private TextView homeNo;
+	private TextView workNo;
+	private TextView email;
+	private TextView homeAddr;
+	private TextView nickName;
     
 	private int contactId = -1;
 	private Contact contact = null;
+	
 	@Override
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -36,11 +42,21 @@ public class ContactDetailsActivity extends Activity
         Intent it = getIntent();
         contactId = it.getIntExtra(DatabaseHandler.KEY_ID, contactId);
         
-        name = (TextView)findViewById(R.id.name_details_layout);
         portrait = (ImageView)findViewById(R.id.portrait_details_layout);
+        dialMobile = (Button)findViewById(R.id.dial_mobile);
+        dialHome = (Button)findViewById(R.id.dial_home);
+        dialWork = (Button)findViewById(R.id.dial_work);
+        sms = (Button)findViewById(R.id.sms);
         mobileNo = (TextView)findViewById(R.id.mobileNo_details_layout);
-        dial = (ImageView)findViewById(R.id.dial);
-        sms = (ImageView)findViewById(R.id.sms);
+        homeNo = (TextView)findViewById(R.id.homeNo_details_layout);
+        workNo = (TextView)findViewById(R.id.workNo_details_layout);
+        email = (TextView)findViewById(R.id.email_details_layout);
+        homeAddr = (TextView)findViewById(R.id.homeAddr_details_layout);
+        nickName = (TextView)findViewById(R.id.nickname_details_layout);
+        
+        showDetails(contactId);
+        ActionBar actionBar = getActionBar();
+        actionBar.setDisplayHomeAsUpEnabled(true);
         
         sms.setOnClickListener(new OnClickListener()
         {
@@ -56,7 +72,7 @@ public class ContactDetailsActivity extends Activity
 			}
 		});
         
-        dial.setOnClickListener(new OnClickListener()
+        dialMobile.setOnClickListener(new OnClickListener()
         {
 			@Override
 			public void onClick(View arg0)
@@ -67,20 +83,43 @@ public class ContactDetailsActivity extends Activity
 			}
 		});
         
-        getDetails(contactId);
+        dialHome.setOnClickListener(new OnClickListener()
+        {
+			@Override
+			public void onClick(View arg0)
+			{
+				Intent dialIntent = new Intent(Intent.ACTION_DIAL);
+				dialIntent.setData(Uri.parse("tel:" + contact.getHomeNumber()));
+				startActivity(dialIntent);
+			}
+		});
         
-        ActionBar actionBar = getActionBar();
-        actionBar.setDisplayHomeAsUpEnabled(true);
+        dialWork.setOnClickListener(new OnClickListener()
+        {
+			@Override
+			public void onClick(View arg0)
+			{
+				Intent dialIntent = new Intent(Intent.ACTION_DIAL);
+				dialIntent.setData(Uri.parse("tel:" + contact.getWrokNumber()));
+				startActivity(dialIntent);
+			}
+		});
     }
 	
-	private void getDetails(int id)
+	private void showDetails(int id)
 	{
 		DatabaseHandler db = new DatabaseHandler(this);
 		contact = db.getContact(id);
-	
-		name.setText(contact.getLastName() + " " + contact.getFirstName());
-		mobileNo.setText(contact.getMobileNumber());
+
 		portrait.setBackground(contact.getPortrait());
+		mobileNo.setText(contact.getMobileNumber());
+		homeNo.setText(contact.getHomeNumber());
+		workNo.setText(contact.getWrokNumber());
+		email.setText(contact.getEmails());
+		homeAddr.setText(contact.getHomeAddress());
+		nickName.setText(contact.getNickName());
+		
+        setTitle(contact.getLastName() + " " + contact.getFirstName());
 	}
 
     @Override
@@ -96,6 +135,13 @@ public class ContactDetailsActivity extends Activity
 		if (item.getItemId() == android.R.id.home)
 		{
 			finish();
+		}
+		else if (item.getItemId() == R.id.action_edit)
+		{
+			Intent intent = new Intent(ContactDetailsActivity.this,AddNewContactActivity.class);
+			intent.putExtra(AddNewContactActivity.INTENT_KEY, String.valueOf(contactId));
+			startActivity(intent);
+			this.finish();
 		}
 		return true;
 	}
