@@ -6,6 +6,8 @@ import org.official.json.JSONObject;
 import android.app.ActionBar.LayoutParams;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -182,7 +184,7 @@ public class AddNewContactActivity extends Activity
         actionBar.setDisplayHomeAsUpEnabled(true);
         
         qrInfo = getIntent().getExtras().getString(INTENT_KEY);
-        Toast.makeText(AddNewContactActivity.this, qrInfo, Toast.LENGTH_SHORT).show();
+        //Toast.makeText(AddNewContactActivity.this, qrInfo, Toast.LENGTH_SHORT).show();
         splitQrInfo(qrInfo);
 	}
 	
@@ -447,11 +449,33 @@ public class AddNewContactActivity extends Activity
 		}
 		else if (item.getItemId() == R.id.action_delete)
 		{
-			DatabaseHandler db = new DatabaseHandler(AddNewContactActivity.this);
-			Contact contact = db.getContact(Integer.parseInt(qrInfo));
-			db.deleteContact(contact);
-			Toast.makeText(AddNewContactActivity.this, "Delete successful!", Toast.LENGTH_SHORT).show();
-			this.finish();
+			AlertDialog.Builder builder = new AlertDialog.Builder(AddNewContactActivity.this);
+			builder.setTitle("Are you sure to delete contact?");
+			builder.setMessage("Click Confirm to delete!");
+			builder.setCancelable(true);
+			builder.setPositiveButton("Confirm", new DialogInterface.OnClickListener() 
+			{
+				@Override
+				public void onClick(DialogInterface arg0, int arg1) 
+				{
+					DatabaseHandler db = new DatabaseHandler(AddNewContactActivity.this);
+					Contact contact = db.getContact(Integer.parseInt(qrInfo));
+					db.deleteContact(contact);
+					Toast.makeText(AddNewContactActivity.this, "Delete successful!", Toast.LENGTH_SHORT).show();
+					AddNewContactActivity.this.finish();
+				}
+			});
+			builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() 
+			{
+				@Override
+				public void onClick(DialogInterface arg0, int arg1)
+				{
+					arg0.cancel();
+				}
+			});
+			
+			AlertDialog dialog = builder.create();
+			dialog.show();
 		}
 		return true;
 	}

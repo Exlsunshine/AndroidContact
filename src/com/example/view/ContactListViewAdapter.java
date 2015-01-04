@@ -49,7 +49,7 @@ public class ContactListViewAdapter extends BaseAdapter
 		if (arg1 == null)
 		{
 			arg1 = inflater.inflate(R.layout.contact_listview_item, null);
-			item.protrait = (ImageView)arg1.findViewById(R.id.portrait);
+			item.protrait = (FadingImageView)arg1.findViewById(R.id.portrait);
 			item.name = (TextView)arg1.findViewById(R.id.name);
 			item.phoneNo = (TextView)arg1.findViewById(R.id.mobileNo);
 			arg1.setTag(item);
@@ -57,7 +57,7 @@ public class ContactListViewAdapter extends BaseAdapter
 		else
 			item = (ListViewItem)arg1.getTag();
 		
-		item.protrait.setBackground((Drawable)list.get(arg0).getPortrait());
+		item.protrait.setImageDrawable((Drawable)list.get(arg0).getPortrait());
 		item.name.setText((String)list.get(arg0).getLastName() + " " + (String)list.get(arg0).getFirstName());
 		item.phoneNo.setText((String)list.get(arg0).getMobileNumber());
 		
@@ -66,7 +66,7 @@ public class ContactListViewAdapter extends BaseAdapter
 	
 	private class ListViewItem
 	{
-		public ImageView protrait;
+		public FadingImageView protrait;
 		public TextView name;
 		public TextView phoneNo;
 	}

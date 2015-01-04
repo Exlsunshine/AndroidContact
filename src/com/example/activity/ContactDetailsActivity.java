@@ -254,12 +254,12 @@ public class ContactDetailsActivity extends Activity
 		}
 		else if (item.getItemId() == R.id.action_copy)
 		{
-			testDialog();
+			copyDialog();
 		}
 		return true;
 	}
     
-    private void testDialog()
+    private void copyDialog()
     {
     	final CharSequence[] items = {" Company ", " Mobile NO."," Work NO. "," Home NO. ", " E-mail "," Home Addr. ", " Nick Name "};
         // arraylist to keep the selected items
