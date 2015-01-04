@@ -37,8 +37,8 @@ public class SlideBar extends View
 	protected void onDraw(Canvas canvas)
 	{
 		super.onDraw(canvas);
-		if (showBkg)
-			canvas.drawColor(Color.parseColor("#40000000"));
+		if (showBkg)//#40000000
+			canvas.drawColor(Color.parseColor("#e5e5e5"));
 
 		int height = getHeight();
 		int width = getWidth();

@@ -25,16 +25,15 @@
 				android:layout_width="wrap_content"
 	     		android:layout_height="wrap_content"
 	     		android:text="Name"
-				android:textSize="15sp"
+				android:textSize="12sp"
 				android:textColor="#cccccc"/>
 	        <TextView 
 				android:layout_width="wrap_content"
 	     		android:layout_height="wrap_content"
 	            android:layout_marginLeft="10dip"
-				android:textSize="20sp"
+				android:textSize="16sp"
 	            android:id="@+id/name"/>
 		</LinearLayout>
-		
         
         <LinearLayout 
 	        android:layout_width="fill_parent"
@@ -44,13 +43,13 @@
 				android:layout_width="wrap_content"
 	     		android:layout_height="wrap_content"
 	     		android:text="Mobile"
-				android:textSize="15sp"
+				android:textSize="12sp"
 				android:textColor="#cccccc"/>
 	        <TextView 
 				android:layout_width="wrap_content"
 	     		android:layout_height="wrap_content" 
 	            android:layout_marginLeft="10dip"
-				android:textSize="20sp"
+				android:textSize="16sp"
 	            android:id="@+id/mobileNo"/>
 		</LinearLayout>
     </LinearLayout>

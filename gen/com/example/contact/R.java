@@ -74,7 +74,7 @@ public final class R {
         public static final int default_qrcode=0x7f020008;
         public static final int head_bg=0x7f020009;
         public static final int ic_launcher=0x7f02000a;
-        public static final int ic_menu_copy_holo_light=0x7f02000b;
+        public static final int ic_menu_copy=0x7f02000b;
         public static final int ic_menu_edit=0x7f02000c;
         public static final int ic_menu_invite=0x7f02000d;
         public static final int icon=0x7f02000e;
@@ -89,13 +89,14 @@ public final class R {
         public static final int sym_action_call=0x7f020017;
     }
     public static final class id {
-        public static final int action_add=0x7f0a003f;
+        public static final int action_add=0x7f0a0040;
+        public static final int action_copy=0x7f0a003c;
         public static final int action_delete=0x7f0a003a;
         public static final int action_edit=0x7f0a003b;
-        public static final int action_me=0x7f0a0040;
-        public static final int action_refresh=0x7f0a003c;
-        public static final int action_scan=0x7f0a003e;
-        public static final int action_search=0x7f0a003d;
+        public static final int action_me=0x7f0a0041;
+        public static final int action_refresh=0x7f0a003d;
+        public static final int action_scan=0x7f0a003f;
+        public static final int action_search=0x7f0a003e;
         public static final int action_settings=0x7f0a0039;
         public static final int add_others=0x7f0a0016;
         public static final int add_others_outter_layout=0x7f0a0015;

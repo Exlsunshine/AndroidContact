@@ -1,7 +1,7 @@
 package com.example.activity;
 
+import java.util.ArrayList;
 import org.official.json.JSONObject;
-
 import com.example.contact.R;
 import com.example.implementation.Contact;
 import com.example.implementation.DatabaseHandler;
@@ -9,7 +9,6 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.animation.Animator;
@@ -18,6 +17,10 @@ import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.ClipboardManager;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
@@ -249,6 +252,89 @@ public class ContactDetailsActivity extends Activity
 			startActivity(intent);
 			this.finish();
 		}
+		else if (item.getItemId() == R.id.action_copy)
+		{
+			testDialog();
+		}
 		return true;
 	}
+    
+    private void testDialog()
+    {
+    	final CharSequence[] items = {" Company ", " Mobile NO."," Work NO. "," Home NO. ", " E-mail "," Home Addr. ", " Nick Name "};
+        // arraylist to keep the selected items
+        final ArrayList seletedItems = new ArrayList();
+
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Select anything you want.");
+        builder.setMultiChoiceItems(items, null, new DialogInterface.OnMultiChoiceClickListener()
+        {
+        	@Override
+        	public void onClick(DialogInterface dialog, int indexSelected, boolean isChecked) 
+        	{
+        		if (isChecked)
+        		{
+        			// If the user checked the item, add it to the selected items
+        			seletedItems.add(indexSelected);
+        		}
+        		else if (seletedItems.contains(indexSelected))
+        		{
+        			// Else, if the item is already in the array, remove it
+        			seletedItems.remove(Integer.valueOf(indexSelected));
+        		}
+        	}
+        })
+        .setPositiveButton("OK", new DialogInterface.OnClickListener()
+        {
+        	@Override
+        	public void onClick(DialogInterface dialog, int id)
+        	{
+        		String str = contact.getLastName() + " " + contact.getFirstName() + " ";
+        		android.text.ClipboardManager clipboard = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+        		
+        		for (int i = 0; i < seletedItems.size(); i++)
+        		{
+        			int index = ((Integer)(seletedItems.get(i))).intValue();
+        			switch (index)
+        			{
+        			case 0:
+        				str += "works at " + contact.getCompany() + " ";
+        				break;
+        			case 1:
+        				str += "mobile NO. is:" + contact.getMobileNumber() + " ";
+        				break;
+        			case 2:
+        				str += "work NO. is:" + contact.getWrokNumber() + " ";
+        				break;
+        			case 3:
+        				str += "home NO. is:" + contact.getHomeNumber() + " ";
+        				break;
+        			case 4:
+        				str += "e-mail is:" + contact.getEmails() + " ";
+        				break;
+        			case 5:
+        				str += "home addr. is:" + contact.getHomeAddress() + " ";
+        				break;
+        			case 6:
+        				str += "nick name. is:" + contact.getNickName() + " ";
+        				break;
+        			default:
+        				break;
+        			}
+        		}
+        		
+        		clipboard.setText(str);
+        	}
+        })
+        .setNegativeButton("Cancel", new DialogInterface.OnClickListener()
+        {
+        	@Override
+        	public void onClick(DialogInterface dialog, int id) 
+        	{
+        	}
+        });
+
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
 }
