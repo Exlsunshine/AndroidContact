@@ -39,6 +39,23 @@ public class MyProfileActivity extends Activity
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_my_profile);
 		setUI();
+		showData();
+	}
+	
+	private void showData()
+	{
+		DatabaseHandler db = new DatabaseHandler(MyProfileActivity.this);
+		Contact contact = db.getContact(1);
+		
+		firstName.setText(contact.getFirstName());
+		lastName.setText(contact.getLastName());
+		company.setText(contact.getCompany());
+		mobileNo.setText(contact.getMobileNumber());
+		workNo.setText(contact.getWrokNumber());
+		homeNo.setText(contact.getHomeNumber());
+		emails.setText(contact.getEmails());
+		homeAddr.setText(contact.getHomeAddress());
+		nickName.setText(contact.getNickName());
 	}
 	
 	private void setUI()

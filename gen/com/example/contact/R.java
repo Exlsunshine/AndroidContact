@@ -126,7 +126,7 @@ public final class R {
         public static final int homeAddr_details_layout=0x7f0a0023;
         public static final int homeNo_details_layout=0x7f0a001e;
         public static final int home_addr_me=0x7f0a0031;
-        public static final int home_no_me=0x7f0a002f;
+        public static final int home_no_me=0x7f0a002e;
         public static final int img=0x7f0a0025;
         public static final int imgCamera=0x7f0a0018;
         public static final int imgCenter=0x7f0a0017;
@@ -157,7 +157,7 @@ public final class R {
         public static final int tv1=0x7f0a000d;
         public static final int viewfinder_view=0x7f0a0036;
         public static final int workNo_details_layout=0x7f0a0020;
-        public static final int work_no_me=0x7f0a002e;
+        public static final int work_no_me=0x7f0a002f;
     }
     public static final class layout {
         public static final int activity_add_new_contact=0x7f030000;
