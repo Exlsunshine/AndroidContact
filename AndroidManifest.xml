@@ -4,12 +4,9 @@
     android:versionCode="1"
     android:versionName="1.0" >
 
-    <uses-permission android:name="android.permission.CALL_PHONE" >
-    </uses-permission>
-
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-feature android:name="android.hardware.camera" />
     <uses-feature android:name="android.hardware.camera.autofocus" />
-
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.VIBRATE" />
@@ -20,7 +17,6 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
 
-    <!-- 16,18 -->
     <uses-sdk
         android:minSdkVersion="16"
         android:targetSdkVersion="18" />
@@ -29,17 +25,14 @@
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:theme="@style/MyTheme">
-       <!--  android:theme="@style/ThemeActivity" >-->
+        android:theme="@style/MyTheme" >
+
+        <!-- android:theme="@style/ThemeActivity" > -->
         <activity
             android:name="com.example.activity.MainActivity"
             android:label="@string/app_name"
             android:launchMode="singleTop" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+           
 
             <!-- Search settings : UI -->
             <intent-filter>
@@ -82,6 +75,15 @@
         <activity
             android:name="com.example.activity.MyProfileActivity"
             android:label="@string/title_activity_my_profile" >
+        </activity>
+        <activity
+            android:name="com.example.implementation.SplashScreen"
+            android:label="@string/title_activity_splash_screen" >
+            
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
     </application>
 
