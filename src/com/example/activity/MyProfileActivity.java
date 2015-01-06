@@ -144,7 +144,7 @@ public class MyProfileActivity extends Activity
 		jsonObj.put(DatabaseHandler.KEY_HOME_ADDRESS, homeAddr.getText().toString());
 		jsonObj.put(DatabaseHandler.KEY_NICK_NAME, nickName.getText().toString());
 		
-		Toast.makeText(MyProfileActivity.this, jsonObj.toString(), Toast.LENGTH_SHORT).show();
+		//Toast.makeText(MyProfileActivity.this, jsonObj.toString(), Toast.LENGTH_SHORT).show();
 		Log.e("_________My json", jsonObj.toString());
 		
 		return jsonObj.toString();

@@ -9,7 +9,9 @@
 	    <LinearLayout 
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
-	        android:orientation="vertical">
+	        android:orientation="vertical"
+	        android:descendantFocusability="beforeDescendants"
+			android:focusableInTouchMode="true">
 			<ImageView 
 				android:layout_width="100dip"
 				android:layout_height="100dip"
@@ -30,19 +32,20 @@
 	                <TextView 
 	                    android:layout_width="wrap_content"
 			        	android:layout_height="wrap_content"
-			        	android:text="First name"
-			        	android:textColor="#cccccc"
-			        	android:textSize="15sp"
 			        	android:layout_marginLeft="5dip"
+	                    android:layout_centerVertical="true"
+			        	android:text="First name"
+			        	android:textColor="#a6a4a4"
+			        	android:textSize="15sp"
 			        	android:id="@+id/inner_id_mobile_no"/>
 	                <EditText 
 	                    android:layout_width="fill_parent"
 			        	android:layout_height="wrap_content"
-			        	android:layout_below="@+id/inner_id_mobile_no"
+			        	android:layout_alignParentLeft="true"
+			        	android:layout_marginLeft="100dip"
 			        	android:text="Zhang"
 			        	android:textSize="20sp"
-			        	android:layout_marginLeft="5dip"
-			        	android:gravity="center_vertical"
+			        	android:gravity="right"
 			        	android:id="@+id/first_name_me"/>
 	            </RelativeLayout>
 	            
@@ -52,19 +55,20 @@
 	                <TextView 
 	                    android:layout_width="wrap_content"
 			        	android:layout_height="wrap_content"
+	                    android:layout_centerVertical="true"
 			        	android:text="Last anme"
-			        	android:textColor="#cccccc"
+			        	android:textColor="#a6a4a4"
 			        	android:textSize="15sp"
 			        	android:layout_marginLeft="5dip"
 			        	android:id="@+id/inner_id_mobile_no"/>
 	                <EditText 
 	                    android:layout_width="fill_parent"
 			        	android:layout_height="wrap_content"
-			        	android:layout_below="@+id/inner_id_mobile_no"
+			        	android:layout_alignParentLeft="true"
+			        	android:layout_marginLeft="100dip"
 			        	android:text="San"
 			        	android:textSize="20sp"
-			        	android:layout_marginLeft="5dip"
-			        	android:gravity="center_vertical"
+			        	android:gravity="right"
 			        	android:id="@+id/last_name_me"/>
 	            </RelativeLayout>
 	            
@@ -74,19 +78,20 @@
 	                <TextView 
 	                    android:layout_width="wrap_content"
 			        	android:layout_height="wrap_content"
+	                    android:layout_centerVertical="true"
 			        	android:text="Company"
-			        	android:textColor="#cccccc"
+			        	android:textColor="#a6a4a4"
 			        	android:textSize="15sp"
 			        	android:layout_marginLeft="5dip"
 			        	android:id="@+id/inner_id_mobile_no"/>
 	                <EditText 
 	                    android:layout_width="fill_parent"
 			        	android:layout_height="wrap_content"
-			        	android:layout_below="@+id/inner_id_mobile_no"
+			        	android:layout_alignParentLeft="true"
+			        	android:layout_marginLeft="100dip"
 			        	android:text="IBM"
 			        	android:textSize="20sp"
-			        	android:layout_marginLeft="5dip"
-			        	android:gravity="center_vertical"
+			        	android:gravity="right"
 			        	android:id="@+id/company_me"/>
 	            </RelativeLayout>
 	            
@@ -103,19 +108,20 @@
 	                <TextView 
 	                    android:layout_width="wrap_content"
 			        	android:layout_height="wrap_content"
+	                    android:layout_centerVertical="true"
 			        	android:text="Mobile"
-			        	android:textColor="#cccccc"
+			        	android:textColor="#a6a4a4"
 			        	android:textSize="15sp"
 			        	android:layout_marginLeft="5dip"
 			        	android:id="@+id/inner_id_mobile_no"/>
 	                <EditText 
 	                    android:layout_width="fill_parent"
 			        	android:layout_height="wrap_content"
-			        	android:layout_below="@+id/inner_id_mobile_no"
+			        	android:layout_alignParentLeft="true"
+			        	android:layout_marginLeft="100dip"
 			        	android:text="134-9875-3282"
 			        	android:textSize="20sp"
-			        	android:layout_marginLeft="5dip"
-			        	android:gravity="center_vertical"
+			        	android:gravity="right"
 			        	android:id="@+id/mobile_no_me"/>
 	            </RelativeLayout>
 	            
@@ -125,19 +131,20 @@
 	                <TextView 
 	                    android:layout_width="wrap_content"
 			        	android:layout_height="wrap_content"
+	                    android:layout_centerVertical="true"
 			        	android:text="Home"
-			        	android:textColor="#cccccc"
+			        	android:textColor="#a6a4a4"
 			        	android:textSize="15sp"
 			        	android:layout_marginLeft="5dip"
 			        	android:id="@+id/inner_id_mobile_no"/>
 	                <EditText 
 	                    android:layout_width="fill_parent"
 			        	android:layout_height="wrap_content"
-			        	android:layout_below="@+id/inner_id_mobile_no"
+			        	android:layout_alignParentLeft="true"
+			        	android:layout_marginLeft="100dip"
 			        	android:text="6732-5698"
 			        	android:textSize="20sp"
-			        	android:layout_marginLeft="5dip"
-			        	android:gravity="center_vertical"
+			        	android:gravity="right"
 			        	android:id="@+id/home_no_me"/>
 	            </RelativeLayout>
 	            
@@ -147,19 +154,20 @@
 	                <TextView 
 	                    android:layout_width="wrap_content"
 			        	android:layout_height="wrap_content"
+	                    android:layout_centerVertical="true"
 			        	android:text="Work"
-			        	android:textColor="#cccccc"
+			        	android:textColor="#a6a4a4"
 			        	android:textSize="15sp"
 			        	android:layout_marginLeft="5dip"
 			        	android:id="@+id/inner_id_mobile_no"/>
 	                <EditText 
 	                    android:layout_width="fill_parent"
 			        	android:layout_height="wrap_content"
-			        	android:layout_below="@+id/inner_id_mobile_no"
+			        	android:layout_alignParentLeft="true"
+			        	android:layout_marginLeft="100dip"
 			        	android:text="8008-8201"
 			        	android:textSize="20sp"
-			        	android:layout_marginLeft="5dip"
-			        	android:gravity="center_vertical"
+			        	android:gravity="right"
 			        	android:id="@+id/work_no_me"/>
 	            </RelativeLayout>
 	            
@@ -168,7 +176,7 @@
 	                android:layout_marginBottom="20dip"
 	                android:layout_width="fill_parent"
 	                android:layout_height="0.5dip"
-	                android:background="#cccccc"/>
+	                android:background="#00b9e8"/>
 	            
 				<RelativeLayout 
 					android:layout_width="fill_parent"
@@ -176,19 +184,20 @@
 	                <TextView 
 	                    android:layout_width="wrap_content"
 			        	android:layout_height="wrap_content"
+	                    android:layout_centerVertical="true"
 			        	android:text="E-mail"
-			        	android:textColor="#cccccc"
+			        	android:textColor="#a6a4a4"
 			        	android:textSize="15sp"
 			        	android:layout_marginLeft="5dip"
 			        	android:id="@+id/inner_id_mobile_no"/>
 	                <EditText 
 	                    android:layout_width="fill_parent"
 			        	android:layout_height="wrap_content"
-			        	android:layout_below="@+id/inner_id_mobile_no"
+			        	android:layout_alignParentLeft="true"
+			        	android:layout_marginLeft="100dip"
 			        	android:text="abcdefg@xxx.yyy.com"
 			        	android:textSize="20sp"
-			        	android:layout_marginLeft="5dip"
-			        	android:gravity="center_vertical"
+			        	android:gravity="right"
 			        	android:id="@+id/emails_me"/>
 	            </RelativeLayout>
 	            
@@ -198,19 +207,20 @@
 	                <TextView 
 	                    android:layout_width="wrap_content"
 			        	android:layout_height="wrap_content"
+	                    android:layout_centerVertical="true"
 			        	android:text="Home address"
-			        	android:textColor="#cccccc"
+			        	android:textColor="#a6a4a4"
 			        	android:textSize="15sp"
 			        	android:layout_marginLeft="5dip"
 			        	android:id="@+id/inner_id_mobile_no"/>
 	                <EditText 
 	                    android:layout_width="fill_parent"
 			        	android:layout_height="wrap_content"
-			        	android:layout_below="@+id/inner_id_mobile_no"
+			        	android:layout_alignParentLeft="true"
+			        	android:layout_marginLeft="100dip"
 			        	android:text="Beijing Chaoyang"
 			        	android:textSize="20sp"
-			        	android:layout_marginLeft="5dip"
-			        	android:gravity="center_vertical"
+			        	android:gravity="right"
 			        	android:id="@+id/home_addr_me"/>
 	            </RelativeLayout>
 	            
@@ -220,19 +230,20 @@
 	                <TextView 
 	                    android:layout_width="wrap_content"
 			        	android:layout_height="wrap_content"
+	                    android:layout_centerVertical="true"
 			        	android:text="Nick name"
-			        	android:textColor="#cccccc"
+			        	android:textColor="#a6a4a4"
 			        	android:textSize="15sp"
 			        	android:layout_marginLeft="5dip"
 			        	android:id="@+id/inner_id_mobile_no"/>
 	                <EditText 
 	                    android:layout_width="fill_parent"
 			        	android:layout_height="wrap_content"
-			        	android:layout_below="@+id/inner_id_mobile_no"
+			        	android:layout_alignParentLeft="true"
+			        	android:layout_marginLeft="100dip"
 			        	android:text="Xiao Li"
 			        	android:textSize="20sp"
-			        	android:layout_marginLeft="5dip"
-			        	android:gravity="center_vertical"
+			        	android:gravity="right"
 			        	android:id="@+id/nick_name_me"/>
 	            </RelativeLayout>
 	        </LinearLayout>
