@@ -238,8 +238,8 @@ public class MainActivity extends Activity
     	ccp.query(
                 Uri.parse("content://" + "com.example.implementation.ContactContentProvider" + "/" + "contacts"),//.fromParts("content", "com.example.implementation.ContactContentProvider.contacts", null),
                 projectionsAll,    // Which columns to return.
-                DatabaseHandler.KEY_FIRST_NAME + " LIKE ? or " + DatabaseHandler.KEY_MOBILE_NO + " LIKE ?",          // WHERE clause.
-                new String [] {query + "%",query + "%"},          // WHERE clause value substitution
+                DatabaseHandler.KEY_FIRST_NAME + " LIKE ? or " + DatabaseHandler.KEY_MOBILE_NO + " LIKE ? or " + DatabaseHandler.KEY_LAST_NAME + " LIKE ? ",          // WHERE clause.
+                new String [] {query + "%", query + "%", query + "%"},          // WHERE clause value substitution
                 DatabaseHandler.KEY_FIRST_NAME);   // Sort order.
     	
     	if (managedCursor != null && managedCursor.moveToFirst())
