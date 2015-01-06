@@ -49,8 +49,9 @@ public class AddNewContactActivity extends Activity
 	private Button done;
 	private Button addPhone;
 	private Button addOthers;
-	private ImageView imageCenter;
-	private ImageView imageCamera;
+	private ImageView imgCenter;
+	private ImageView imgGallery;
+	private ImageView imgCamera;
 	private ImageView portrait;
 	private EditText firstName;
 	private EditText lastName;
@@ -82,14 +83,15 @@ public class AddNewContactActivity extends Activity
 		done = (Button)findViewById(R.id.done);
 		addPhone = (Button)findViewById(R.id.add_phone);
 		addOthers = (Button)findViewById(R.id.add_others);
-		imageCenter = (ImageView)findViewById(R.id.imgCenter);
-		imageCamera = (ImageView)findViewById(R.id.imgCamera);
+		imgCenter = (ImageView)findViewById(R.id.imgCenter);
+		imgGallery = (ImageView)findViewById(R.id.imgGallery);
+		imgCamera = (ImageView)findViewById(R.id.imgCamera);
 		portrait = (ImageView)findViewById(R.id.portrait);
 		firstName = (EditText)findViewById(R.id.first_name);
 		lastName = (EditText)findViewById(R.id.last_name);
 		company = (EditText)findViewById(R.id.company);
 		
-		imageCamera.setOnClickListener(new OnClickListener()
+		imgGallery.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View arg0)
@@ -98,7 +100,16 @@ public class AddNewContactActivity extends Activity
 			}
 		});
 		
-		imageCenter.setOnClickListener(new OnClickListener()
+		imgCamera.setOnClickListener(new OnClickListener()
+		{
+			@Override
+			public void onClick(View arg0)
+			{
+				selectFromCamera();
+			}
+		});
+		
+		imgCenter.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View arg0)
@@ -108,7 +119,7 @@ public class AddNewContactActivity extends Activity
 				else
 				{
 					hasInit = true;
-					ButtonAnimations btn = new ButtonAnimations(imageCenter,imageCamera);
+					ButtonAnimations btn =  new ButtonAnimations(imgCenter, imgCamera, imgGallery);
 				}
 			}
 		});
