@@ -324,6 +324,7 @@ public class ContactDetailsActivity extends Activity
         		}
         		
         		clipboard.setText(str);
+        		Toast.makeText(ContactDetailsActivity.this, "Copied!", Toast.LENGTH_SHORT).show();
         	}
         })
         .setNegativeButton("Cancel", new DialogInterface.OnClickListener()
