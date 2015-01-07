@@ -58,17 +58,17 @@
 	    	    <EditText 
 	    	        android:layout_width="fill_parent"
 	    			android:layout_height="wrap_content"
-	    			android:text="First"
-	    			android:id="@+id/first_name"/>
+	    			android:id="@+id/first_name"
+	    			android:hint="First name"/>
 	    	    <EditText 
 	    	        android:layout_width="fill_parent"
 	    			android:layout_height="wrap_content"
-	    			android:text="Last"
+	    			android:hint="Last name"
 	    			android:id="@+id/last_name"/>
 	    	    <EditText 
 	    	        android:layout_width="fill_parent"
 	    			android:layout_height="wrap_content"
-	    			android:text="Company"
+	    			android:hint="Company"
 	    			android:id="@+id/company"/>
 	    	</LinearLayout>
 	    </LinearLayout>
