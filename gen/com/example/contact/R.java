@@ -79,24 +79,27 @@ public final class R {
         public static final int ic_menu_invite=0x7f02000d;
         public static final int icon=0x7f02000e;
         public static final int minus=0x7f02000f;
-        public static final int portrait=0x7f020010;
-        public static final int refresh=0x7f020011;
-        public static final int sky_background=0x7f020012;
-        public static final int splash=0x7f020013;
-        public static final int splash1=0x7f020014;
-        public static final int splash2=0x7f020015;
-        public static final int sym_action_call=0x7f020016;
+        public static final int phone=0x7f020010;
+        public static final int phone_128=0x7f020011;
+        public static final int phone_64=0x7f020012;
+        public static final int portrait=0x7f020013;
+        public static final int refresh=0x7f020014;
+        public static final int sky_background=0x7f020015;
+        public static final int splash=0x7f020016;
+        public static final int splash1=0x7f020017;
+        public static final int splash2=0x7f020018;
+        public static final int sym_action_call=0x7f020019;
     }
     public static final class id {
-        public static final int action_add=0x7f0a0042;
-        public static final int action_copy=0x7f0a003e;
-        public static final int action_delete=0x7f0a003c;
-        public static final int action_edit=0x7f0a003d;
-        public static final int action_me=0x7f0a0043;
-        public static final int action_refresh=0x7f0a003f;
-        public static final int action_scan=0x7f0a0041;
-        public static final int action_search=0x7f0a0040;
-        public static final int action_settings=0x7f0a003b;
+        public static final int action_add=0x7f0a0044;
+        public static final int action_copy=0x7f0a0040;
+        public static final int action_delete=0x7f0a003e;
+        public static final int action_edit=0x7f0a003f;
+        public static final int action_me=0x7f0a0045;
+        public static final int action_refresh=0x7f0a0041;
+        public static final int action_scan=0x7f0a0043;
+        public static final int action_search=0x7f0a0042;
+        public static final int action_settings=0x7f0a003d;
         public static final int add_others=0x7f0a0016;
         public static final int add_others_outter_layout=0x7f0a0015;
         public static final int add_phone=0x7f0a0014;
@@ -108,6 +111,7 @@ public final class R {
         public static final int company=0x7f0a0012;
         public static final int company_me=0x7f0a002d;
         public static final int contactListview=0x7f0a0028;
+        public static final int contactListview_top_window=0x7f0a003c;
         public static final int decode=0x7f0a0001;
         public static final int decode_failed=0x7f0a0002;
         public static final int decode_succeeded=0x7f0a0003;
@@ -156,6 +160,7 @@ public final class R {
         public static final int top_relative=0x7f0a0039;
         public static final int tv1=0x7f0a000d;
         public static final int viewfinder_view=0x7f0a0038;
+        public static final int widgetListener=0x7f0a003b;
         public static final int workNo_details_layout=0x7f0a0021;
         public static final int work_no_me=0x7f0a0030;
     }
@@ -167,7 +172,10 @@ public final class R {
         public static final int activity_my_profile=0x7f030004;
         public static final int activity_splash_screen=0x7f030005;
         public static final int contact_listview_item=0x7f030006;
-        public static final int scanner=0x7f030007;
+        public static final int contact_listview_widget_item=0x7f030007;
+        public static final int scanner=0x7f030008;
+        public static final int simple_list_item=0x7f030009;
+        public static final int top_window=0x7f03000a;
     }
     public static final class menu {
         public static final int add_new_contact=0x7f0d0000;

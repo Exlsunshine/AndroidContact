@@ -39,7 +39,9 @@
 			    android:layout_below="@id/indexIndicator" 
 	            android:layout_width="fill_parent"
 		    	android:layout_height="fill_parent"
-		    	android:id="@+id/contactListview">
+		    	android:id="@+id/contactListview"
+		    	android:clickable="true"
+		    	android:focusable="true">
         	</ListView>
         	
 			<com.example.implementation.SlideBar 
