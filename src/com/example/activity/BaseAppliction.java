@@ -107,7 +107,7 @@ public class BaseAppliction extends Application
 					}	
 					isExpand = !isExpand;
 				} 
-				else if (action == MotionEvent.ACTION_MOVE)
+				else if (action == MotionEvent.ACTION_MOVE && (Math.abs(x - lastX) > 50 || Math.abs(y - lastY) > 50))
 				{
 					mWMParams.x += (int) (x - lastX);
 					mWMParams.y += (int) (y - lastY);

@@ -4,6 +4,7 @@ import org.official.json.JSONObject;
 import com.example.contact.R;
 import com.example.implementation.Contact;
 import com.example.implementation.DatabaseHandler;
+import com.example.view.FadingImageView;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
@@ -11,6 +12,7 @@ import com.google.zxing.qrcode.QRCodeWriter;
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.util.Log;
@@ -31,7 +33,7 @@ public class MyProfileActivity extends Activity
 	private EditText emails;
 	private EditText homeAddr;
 	private EditText nickName;
-	private ImageView qrCode;
+	private FadingImageView qrCode;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState)
@@ -56,6 +58,9 @@ public class MyProfileActivity extends Activity
 		emails.setText(contact.getEmails());
 		homeAddr.setText(contact.getHomeAddress());
 		nickName.setText(contact.getNickName());
+		
+		String content = buildJson();
+		generateQrcode(content);
 	}
 	
 	private void setUI()
@@ -72,10 +77,7 @@ public class MyProfileActivity extends Activity
 		emails = (EditText)findViewById(R.id.emails_me);
 		homeAddr = (EditText)findViewById(R.id.home_addr_me);
 		nickName = (EditText)findViewById(R.id.nick_name_me);
-		qrCode = (ImageView)findViewById(R.id.qrcode_me);
-		
-		String content = buildJson();
-		generateQrcode(content);
+		qrCode = (FadingImageView)findViewById(R.id.qrcode_me);
 	}
 	
 	private void saveToDatabase()
@@ -162,6 +164,12 @@ public class MyProfileActivity extends Activity
 	{
 		if (item.getItemId() == android.R.id.home)
 		{
+			Intent it = new Intent(MyProfileActivity.this,MainActivity.class);
+			startActivity(it);
+			
+			int version = Integer.valueOf(android.os.Build.VERSION.SDK);  
+			if(version >= 5)
+				overridePendingTransition(R.anim.open_enter, R.anim.open_exit);
 			finish();
 		}
 		else if (item.getItemId() == R.id.action_refresh)
@@ -169,6 +177,8 @@ public class MyProfileActivity extends Activity
 			saveToDatabase();
 			String content = buildJson();
 			generateQrcode(content);
+			
+			Toast.makeText(MyProfileActivity.this, "Success!", Toast.LENGTH_SHORT).show();
 		}
 		return true;
 	}

@@ -10,13 +10,12 @@
 	        android:layout_width="fill_parent"
 	        android:layout_height="fill_parent"
 	        android:orientation="vertical">
-			<ImageView 
+			<com.example.view.FadingImageView 
 				android:layout_width="100dip"
 				android:layout_height="100dip"
 				android:layout_marginTop="20dip"
 				android:layout_marginBottom="20dip"
 				android:layout_gravity="center_horizontal"
-				android:background="@drawable/ic_launcher"
 				android:id="@+id/portrait_details_layout"/>
 	        
 	        <LinearLayout 

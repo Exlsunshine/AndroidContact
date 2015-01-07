@@ -5,6 +5,7 @@ import org.official.json.JSONObject;
 import com.example.contact.R;
 import com.example.implementation.Contact;
 import com.example.implementation.DatabaseHandler;
+import com.example.view.FadingImageView;
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
@@ -39,7 +40,7 @@ import android.widget.Toast;
 
 public class ContactDetailsActivity extends Activity
 {
-	private ImageView portrait;
+	private FadingImageView portrait;
 	private Button dialMobile;
 	private Button dialHome;
 	private Button dialWork;
@@ -65,7 +66,7 @@ public class ContactDetailsActivity extends Activity
         Intent it = getIntent();
         contactId = it.getIntExtra(DatabaseHandler.KEY_ID, contactId);
         
-        portrait = (ImageView)findViewById(R.id.portrait_details_layout);
+        portrait = (FadingImageView)findViewById(R.id.portrait_details_layout);
         dialMobile = (Button)findViewById(R.id.dial_mobile);
         dialHome = (Button)findViewById(R.id.dial_home);
         dialWork = (Button)findViewById(R.id.dial_work);
@@ -97,9 +98,11 @@ public class ContactDetailsActivity extends Activity
 					public void onAnimationEnd(Animator arg0)
 					{
 						if (isPortrait)
-							portrait.setBackground(new BitmapDrawable(qrCode));
+							portrait.setImageDrawable(new BitmapDrawable(qrCode));
+							//portrait.setBackground(new BitmapDrawable(qrCode));
 						else
-							portrait.setBackground(contact.getPortrait());
+							portrait.setImageDrawable(contact.getPortrait());
+							//portrait.setBackground(contact.getPortrait());
 						isPortrait = !isPortrait;
 						
 						AnimatorSet set;
@@ -128,8 +131,8 @@ public class ContactDetailsActivity extends Activity
 				Intent sms = new Intent(Intent.ACTION_VIEW);
 				//sms.setData(Uri.parse("sms:"));
 				sms.setType("vnd.android-dir/mms-sms");
-				sms.putExtra("address", "12125551212");
-				sms.putExtra("sms_body", "tttttt");
+				sms.putExtra("address", contact.getMobileNumber());
+				sms.putExtra("sms_body", "");
 				startActivity(sms);
 			}
 		});
@@ -173,7 +176,7 @@ public class ContactDetailsActivity extends Activity
 		DatabaseHandler db = new DatabaseHandler(this);
 		contact = db.getContact(id);
 
-		portrait.setBackground(contact.getPortrait());
+		portrait.setImageDrawable(contact.getPortrait());
 		mobileNo.setText(contact.getMobileNumber());
 		homeNo.setText(contact.getHomeNumber());
 		workNo.setText(contact.getWrokNumber());
@@ -243,6 +246,13 @@ public class ContactDetailsActivity extends Activity
 	{
 		if (item.getItemId() == android.R.id.home)
 		{
+			Intent intent = new Intent(ContactDetailsActivity.this,MainActivity.class);
+			startActivity(intent);
+			
+			int version = Integer.valueOf(android.os.Build.VERSION.SDK);  
+			if(version >= 5)
+				overridePendingTransition(R.anim.close_enter, R.anim.close_exit);
+			
 			finish();
 		}
 		else if (item.getItemId() == R.id.action_edit)
@@ -250,6 +260,11 @@ public class ContactDetailsActivity extends Activity
 			Intent intent = new Intent(ContactDetailsActivity.this,AddNewContactActivity.class);
 			intent.putExtra(AddNewContactActivity.INTENT_KEY, String.valueOf(contactId));
 			startActivity(intent);
+			
+			int version = Integer.valueOf(android.os.Build.VERSION.SDK);  
+			if(version >= 5)
+				overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+			
 			this.finish();
 		}
 		else if (item.getItemId() == R.id.action_copy)

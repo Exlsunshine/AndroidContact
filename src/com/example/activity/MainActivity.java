@@ -88,6 +88,10 @@ public class MainActivity extends Activity
 				it.putExtra(DatabaseHandler.KEY_ID, ((Integer)contactList.get(arg2).getID()).intValue());
 				
 				MainActivity.this.startActivity(it);
+				
+				int version = Integer.valueOf(android.os.Build.VERSION.SDK);  
+				if(version >= 5)
+					overridePendingTransition(R.anim.close_enter, R.anim.close_exit);
 			}
 		});
 	}
@@ -147,6 +151,10 @@ public class MainActivity extends Activity
 			{
 				Intent it = new Intent(MainActivity.this,MyProfileActivity.class);
 				startActivity(it);
+				
+				int version = Integer.valueOf(android.os.Build.VERSION.SDK);  
+				if(version >= 5)
+					overridePendingTransition(R.anim.open_enter, R.anim.open_exit);
 				
 				return true;
 			}

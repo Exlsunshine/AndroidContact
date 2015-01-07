@@ -37,6 +37,7 @@ import com.example.implementation.ButtonAnimations;
 import com.example.implementation.Contact;
 import com.example.implementation.DatabaseHandler;
 import com.example.implementation.ImageUtils;
+import com.example.view.FadingImageView;
 
 public class AddNewContactActivity extends Activity
 {	
@@ -52,7 +53,7 @@ public class AddNewContactActivity extends Activity
 	private ImageView imgCenter;
 	private ImageView imgGallery;
 	private ImageView imgCamera;
-	private ImageView portrait;
+	private FadingImageView portrait;
 	private EditText firstName;
 	private EditText lastName;
 	private EditText company;
@@ -86,7 +87,7 @@ public class AddNewContactActivity extends Activity
 		imgCenter = (ImageView)findViewById(R.id.imgCenter);
 		imgGallery = (ImageView)findViewById(R.id.imgGallery);
 		imgCamera = (ImageView)findViewById(R.id.imgCamera);
-		portrait = (ImageView)findViewById(R.id.portrait);
+		portrait = (FadingImageView)findViewById(R.id.portrait);
 		firstName = (EditText)findViewById(R.id.first_name);
 		lastName = (EditText)findViewById(R.id.last_name);
 		company = (EditText)findViewById(R.id.company);
@@ -129,7 +130,7 @@ public class AddNewContactActivity extends Activity
 			@Override
 			public void onClick(View arg0)
 			{
-				addOthersView("add at here",0);
+				addOthersView("",0);
 			}
 		});
 		
@@ -138,7 +139,7 @@ public class AddNewContactActivity extends Activity
 			@Override
 			public void onClick(View arg0)
 			{
-				addPhoneView("add number here.",0);
+				addPhoneView("",0);
 			}
 		});
 		
@@ -172,7 +173,7 @@ public class AddNewContactActivity extends Activity
 					map.put(othersType[sp.getSelectedItemPosition()], et.getText().toString());
 				}
 				
-				map.put("portrait", portrait.getBackground());
+				map.put("portrait", portrait.getDrawable());
 				Contact contact = new Contact((Drawable)map.get("portrait"), (String)map.get("firstName"), (String)map.get("lastName"), (String)map.get("company"), (String)map.get("Mobile"), (String)map.get("Home"), (String)map.get("Work"), (String)map.get("E-mails"), (String)map.get("Home addres"), (String)map.get("Nick name"));
 				saveToDatabase(contact);
 				
@@ -187,6 +188,11 @@ public class AddNewContactActivity extends Activity
 			{
 				Intent it = new Intent(AddNewContactActivity.this, MainActivity.class);
 				startActivity(it);
+				
+				int version = Integer.valueOf(android.os.Build.VERSION.SDK);  
+				if(version >= 5)
+					overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+				
 				AddNewContactActivity.this.finish();
 			}
 		});
@@ -299,7 +305,8 @@ public class AddNewContactActivity extends Activity
 			addOthersView(contact.getEmails(),0);
 			addOthersView(contact.getHomeAddress(),1);
 			addOthersView(contact.getNickName(),2);
-			portrait.setBackground(contact.getPortrait());
+			portrait.setImageDrawable(contact.getPortrait());			
+			//portrait.setBackground(contact.getPortrait());
 			
 			ENTER_TYPE = EnterType.FROM_EDIT_BUTTON;
 		}
@@ -419,7 +426,8 @@ public class AddNewContactActivity extends Activity
 			    	Log.i("onActivityResult_________", "takePicture");
 			        Uri selectedImage = imageReturnedIntent.getData();
 					Bitmap bmp = ImageUtils.decodeUri(this,selectedImage,100,100);
-					portrait.setBackground(new BitmapDrawable(bmp));
+					portrait.setImageBitmap(bmp);
+					//portrait.setBackground(new BitmapDrawable(bmp));
 			    }
 			    break; 
 			case 1:
@@ -428,7 +436,8 @@ public class AddNewContactActivity extends Activity
 			    	Log.i("onActivityResult_________", "pickPhoto");
 			        Uri selectedImage = imageReturnedIntent.getData();
 					Bitmap bmp = ImageUtils.decodeUri(this,selectedImage,100,100);
-					portrait.setBackground(new BitmapDrawable(bmp));
+					portrait.setImageBitmap(bmp);
+					//portrait.setBackground(new BitmapDrawable(bmp));
 			    }
 			break;
 			default:
@@ -456,6 +465,13 @@ public class AddNewContactActivity extends Activity
 	{
 		if (item.getItemId() == android.R.id.home)
 		{
+			Intent it = new Intent(AddNewContactActivity.this, MainActivity.class);
+			startActivity(it);
+			
+			int version = Integer.valueOf(android.os.Build.VERSION.SDK);  
+			if(version >= 5)
+				overridePendingTransition(R.anim.zoomin, R.anim.zoomout);
+			
 			finish();
 		}
 		else if (item.getItemId() == R.id.action_delete)
