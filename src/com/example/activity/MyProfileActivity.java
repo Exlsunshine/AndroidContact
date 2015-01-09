@@ -9,6 +9,8 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.zijunlin.Zxing.Demo.CaptureActivity;
+
 import android.os.Bundle;
 import android.app.ActionBar;
 import android.app.Activity;
@@ -22,6 +24,11 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+/**
+ * <b>Descriptioin:</b><br>
+ * This Activiy is used for editing or checking user's own profile.
+ * @author EXLsunshine
+ * */
 public class MyProfileActivity extends Activity
 {
 	private EditText firstName;
@@ -44,6 +51,10 @@ public class MyProfileActivity extends Activity
 		showData();
 	}
 	
+	
+	/**
+	 * Get user's own profile from database. Load data to current window.
+	 * */
 	private void showData()
 	{
 		DatabaseHandler db = new DatabaseHandler(MyProfileActivity.this);
@@ -63,6 +74,9 @@ public class MyProfileActivity extends Activity
 		generateQrcode(content);
 	}
 	
+	/**
+	 * Set UI settings.
+	 * */
 	private void setUI()
 	{
 		ActionBar actionBar = getActionBar();
@@ -80,6 +94,9 @@ public class MyProfileActivity extends Activity
 		qrCode = (FadingImageView)findViewById(R.id.qrcode_me);
 	}
 	
+	/**
+	 * Save the changes to database.
+	 * */
 	private void saveToDatabase()
 	{
 		DatabaseHandler db = new DatabaseHandler(MyProfileActivity.this);
@@ -105,6 +122,10 @@ public class MyProfileActivity extends Activity
 		}
 	}
 	
+	/**
+	 * Convert the give String to a QRcode. Load the QRcode to ImageView.
+	 * @param content the content to be generated in the QRcode.
+	 * */
 	private void generateQrcode(String content)
 	{
 		QRCodeWriter writer = new QRCodeWriter();
@@ -132,6 +153,10 @@ public class MyProfileActivity extends Activity
 	    }
 	}
 	
+	/**
+	 * Convert the user's profile to a string according to the Json format.
+	 * @return the Json string which represents the user's profile.
+	 * */
 	private String buildJson()
 	{
 		JSONObject jsonObj = new JSONObject();
@@ -146,7 +171,6 @@ public class MyProfileActivity extends Activity
 		jsonObj.put(DatabaseHandler.KEY_HOME_ADDRESS, homeAddr.getText().toString());
 		jsonObj.put(DatabaseHandler.KEY_NICK_NAME, nickName.getText().toString());
 		
-		//Toast.makeText(MyProfileActivity.this, jsonObj.toString(), Toast.LENGTH_SHORT).show();
 		Log.e("_________My json", jsonObj.toString());
 		
 		return jsonObj.toString();

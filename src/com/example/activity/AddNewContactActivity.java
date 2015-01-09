@@ -10,7 +10,6 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,8 +22,6 @@ import android.view.View.OnClickListener;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.view.animation.Animation.AnimationListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
@@ -38,16 +35,28 @@ import com.example.implementation.Contact;
 import com.example.implementation.DatabaseHandler;
 import com.example.implementation.ImageUtils;
 import com.example.view.FadingImageView;
+import com.zijunlin.Zxing.Demo.CaptureActivity;
 
+/**
+ * <b>Descriptioin:</b><br>
+ * This Activiy is used for adding new contact or editing existing contact.
+ * <br>There are three ways to activate
+ * this activity:
+ * <br><b>#1</b> From a button triggered by {@link MainActivity}.
+ * <br><b>#2</b> From a QRcode result processed by {@link CaptureActivity}.
+ * <br><b>#3</b> From a button triggered by {@link ContactDetailsActivity}.
+ * <br><br>Both <b>#1</b> & <b>#2</b> are going to add new contact.
+ * <br><b>#3</b> is going to edit an existing contact.
+ * @author EXLsunshine
+ * */
 public class AddNewContactActivity extends Activity
 {	
 	public static String INTENT_KEY = "QRCODE_INTENT_KEY";
 	public static String INTENT_INVALID_DATA = "INVALID";
-
 	private static String DEBUG_TAG = "AddNewContactActivity_________";
 	
 	private Button cancel;
-	private Button done;
+	private Button save;
 	private Button addPhone;
 	private Button addOthers;
 	private ImageView imgCenter;
@@ -58,8 +67,20 @@ public class AddNewContactActivity extends Activity
 	private EditText lastName;
 	private EditText company;
 	
-	
+	/**
+	 * Phone type. There are there types for the phone number:
+	 * <br><b>#1</b> Mobile number
+	 * <br><b>#2</b> Home number
+	 * <br><b>#3</b> Work number
+	 * */
 	private String [] phoneType = {"Mobile","Home","Work"};
+	
+	/**
+	 * Additional information type. There are there types for the additional information:
+	 * <br><b>#1</b> E-mails
+	 * <br><b>#2</b> Home addres
+	 * <br><b>#3</b> Nick name
+	 * */
 	private String [] othersType = {"E-mails","Home addres","Nick name"};
 	private int cnt = 0;
 	private int othersId = 0;
@@ -81,7 +102,7 @@ public class AddNewContactActivity extends Activity
 		setContentView(R.layout.activity_add_new_contact);
 		
 		cancel = (Button)findViewById(R.id.cancel);
-		done = (Button)findViewById(R.id.done);
+		save = (Button)findViewById(R.id.done);
 		addPhone = (Button)findViewById(R.id.add_phone);
 		addOthers = (Button)findViewById(R.id.add_others);
 		imgCenter = (ImageView)findViewById(R.id.imgCenter);
@@ -143,7 +164,7 @@ public class AddNewContactActivity extends Activity
 			}
 		});
 		
-		done.setOnClickListener(new OnClickListener()
+		save.setOnClickListener(new OnClickListener()
 		{
 			@Override
 			public void onClick(View arg0)
@@ -201,10 +222,17 @@ public class AddNewContactActivity extends Activity
         actionBar.setDisplayHomeAsUpEnabled(true);
         
         qrInfo = getIntent().getExtras().getString(INTENT_KEY);
-        //Toast.makeText(AddNewContactActivity.this, qrInfo, Toast.LENGTH_SHORT).show();
         splitQrInfo(qrInfo);
 	}
 	
+	/**
+	 * Add a specific type of phone number to the current window.
+	 * @param value the phone number
+	 * @param indexOfPhoneType the index of the {@link #phoneType}
+	 * 
+	 * @see {@link #phoneType}
+	 * 
+	 * */
 	private void addPhoneView(String value, int indexOfPhoneType)
 	{
 		LinearLayout addPhoneOutterLayout = (LinearLayout)findViewById(R.id.add_phone_outter_layout);
@@ -239,6 +267,14 @@ public class AddNewContactActivity extends Activity
 		layout.startAnimation(alpha);
 	}
 	
+	/**
+	 * Add a specific type of additional information to the current window.
+	 * @param value the information
+	 * @param indexOfOthersType the index of the {@link #othersType}
+	 * 
+	 * @see {@link #othersType}
+	 * 
+	 * */
 	private void addOthersView(String value, int indexOfOthersType)
 	{
 		LinearLayout addOthersOuterLayout = (LinearLayout)findViewById(R.id.add_others_outter_layout);
@@ -274,6 +310,12 @@ public class AddNewContactActivity extends Activity
 		layout.startAnimation(alpha);
 	}
 	
+	/**
+	 * Check whether the given String is a number.
+	 * @param num the number to be checked.
+	 * @return 	true if the <b>num</b> is a number.
+	 * 			<br>false if <b>num</b> is not a number.
+	 * */
 	private boolean isNumberic(String num)
 	{
 		for (char c : num.toCharArray())
@@ -284,6 +326,7 @@ public class AddNewContactActivity extends Activity
 		
 		return true;
 	}
+	
 	
 	private void splitQrInfo(String qrInfo)
 	{
@@ -306,7 +349,6 @@ public class AddNewContactActivity extends Activity
 			addOthersView(contact.getHomeAddress(),1);
 			addOthersView(contact.getNickName(),2);
 			portrait.setImageDrawable(contact.getPortrait());			
-			//portrait.setBackground(contact.getPortrait());
 			
 			ENTER_TYPE = EnterType.FROM_EDIT_BUTTON;
 		}
@@ -328,6 +370,11 @@ public class AddNewContactActivity extends Activity
 		}
 	}
 	
+	/**
+	 * Save the given contact to database.
+	 * 
+	 * @param contact the contact to be saved.
+	 * */
 	private void saveToDatabase(Contact contact)
 	{
 		DatabaseHandler db = new DatabaseHandler(this);
@@ -403,17 +450,24 @@ public class AddNewContactActivity extends Activity
 		}
 	};
 	
+	/**
+	 * Select contact's portrait from gallery.
+	 * */
 	private void selectFromMedia()
 	{
 		Intent pickPhoto = new Intent(Intent.ACTION_PICK,android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
 		startActivityForResult(pickPhoto , 1);
 	}
 	
+	/**
+	 * Select contact's portrait from camera.
+	 * */
 	private void selectFromCamera()
 	{
 		Intent takePicture = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 		startActivityForResult(takePicture, 0);
 	}
+	
 	
 	protected void onActivityResult(int requestCode, int resultCode, Intent imageReturnedIntent)
 	{ 

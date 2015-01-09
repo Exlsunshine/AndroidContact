@@ -392,6 +392,13 @@ public class MainActivity extends Activity
         }
     }
 	
+	/**
+	 * Get suggestions when user executes a search query.
+	 * <br>This operation supports <b>fuzzy query.</b>
+	 * So the result will contain any contact whose last name, first name or mobile number contains the <b>query</b> string.
+	 * @param query the content that's the user queried.
+	 * <br> the query could be contact's last name, first name or mobile number.
+	 * */
 	private void getSuggestions(String query)
 	{
 		contactList.clear();

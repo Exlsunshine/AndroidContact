@@ -10,6 +10,8 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.WriterException;
 import com.google.zxing.common.BitMatrix;
 import com.google.zxing.qrcode.QRCodeWriter;
+import com.zijunlin.Zxing.Demo.CaptureActivity;
+
 import android.net.Uri;
 import android.os.Bundle;
 import android.animation.Animator;
@@ -38,6 +40,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * <b>Descriptioin:</b><br>
+ * This Activiy is used for checking details for a given contact.
+ * @author EXLsunshine
+ * */
 public class ContactDetailsActivity extends Activity
 {
 	private FadingImageView portrait;
@@ -99,10 +106,8 @@ public class ContactDetailsActivity extends Activity
 					{
 						if (isPortrait)
 							portrait.setImageDrawable(new BitmapDrawable(qrCode));
-							//portrait.setBackground(new BitmapDrawable(qrCode));
 						else
 							portrait.setImageDrawable(contact.getPortrait());
-							//portrait.setBackground(contact.getPortrait());
 						isPortrait = !isPortrait;
 						
 						AnimatorSet set;
@@ -129,7 +134,6 @@ public class ContactDetailsActivity extends Activity
 			public void onClick(View arg0)
 			{
 				Intent sms = new Intent(Intent.ACTION_VIEW);
-				//sms.setData(Uri.parse("sms:"));
 				sms.setType("vnd.android-dir/mms-sms");
 				sms.putExtra("address", contact.getMobileNumber());
 				sms.putExtra("sms_body", "");
@@ -171,6 +175,12 @@ public class ContactDetailsActivity extends Activity
 		});
     }
 	
+	/**
+	 * Get the contact from database according to the given id.
+	 * Then refresh current window to show the contact's detail data.
+	 * 
+	 * @param id the id of the contact to be showed.
+	 * */
 	private void showDetails(int id)
 	{
 		DatabaseHandler db = new DatabaseHandler(this);
@@ -185,10 +195,13 @@ public class ContactDetailsActivity extends Activity
 		nickName.setText(contact.getNickName());
 		
         setTitle(contact.getLastName() + " " + contact.getFirstName());
-        
         generateQrcode(buildJson(contact));
 	}
 	
+	/**
+	 * Convert the give String to a QRcode. Load the QRcode to ImageView.
+	 * @param content the content to be generated in the QRcode.
+	 * */
 	private void generateQrcode(String content)
 	{
 		QRCodeWriter writer = new QRCodeWriter();
@@ -215,6 +228,14 @@ public class ContactDetailsActivity extends Activity
 	    }
 	}
 	
+	/**
+	 * Convert the given contact's profile to a string according
+	 * to the Json format.
+	 * 
+	 * @param contact the contact whose data will be converted.
+	 * 
+	 * @return the Json string which represents the given contact's profile.
+	 * */
 	private String buildJson(Contact contact)
 	{
 		JSONObject jsonObj = new JSONObject();
@@ -274,6 +295,9 @@ public class ContactDetailsActivity extends Activity
 		return true;
 	}
     
+    /**
+     * Let the user decide what information they want to copy.
+     * */
     private void copyDialog()
     {
     	final CharSequence[] items = {" Company ", " Mobile NO."," Work NO. "," Home NO. ", " E-mail "," Home Addr. ", " Nick Name "};
