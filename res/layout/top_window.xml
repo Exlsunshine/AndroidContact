@@ -8,7 +8,7 @@
 	    android:layout_centerVertical="true"
 		android:layout_width="50dip"
 		android:layout_height="50dip"
-		android:src="@drawable/phone_64"
+		android:src="@drawable/phone"
 		android:id="@+id/widgetListener"/>
 	
 	<ListView

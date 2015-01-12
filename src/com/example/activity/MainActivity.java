@@ -239,6 +239,14 @@ public class MainActivity extends Activity
 	}
 	
 	@Override
+	public boolean onOptionsItemSelected(MenuItem item)
+	{
+		if (item.getItemId() == android.R.id.background)
+			this.finish();
+		return true;
+	}
+	
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu)
 	{
 		MenuInflater inflater = getMenuInflater();
